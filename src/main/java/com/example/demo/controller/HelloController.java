@@ -22,6 +22,7 @@ public class HelloController {
         jspSample.add("수학 : 90점");
         jspSample.add("영어 : 75점");
         jspSample.add("중꿔 : 75점");
+        jspSample.add("중꿔 : 75점");
         mv.addObject("list",jspSample);
         return mv;
     }
