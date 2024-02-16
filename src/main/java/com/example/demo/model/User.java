@@ -1,29 +1,14 @@
 package com.example.demo.model;
-
+import lombok.Data;
 import org.springframework.context.annotation.Bean;
 
-
+//회원 가입시에 user 객체를 생성하는 데 사용될 것이고, 이 데이터를 DB에 저장해서 관리해야할 것임
+@Data
 public class User {
-    private String username; // 데이터베이스의 username 컬럼에 해당
-    private String password; // 데이터베이스의 password 컬럼에 해당
-
-    // username 필드에 대한 getter 메서드
-    public String getUsername() {
-        return username;
-    }
-
-    // username 필드에 대한 setter 메서드
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    // password 필드에 대한 getter 메서드
-    public String getPassword() {
-        return password;
-    }
-
-    // password 필드에 대한 setter 메서드
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    private String  username; // username table : user column : user_name
+    private String  password; // password table : user column : passworkd_hash;
+    private String  nickname; // nickname table : user column : nickname;
+    private String  email; // email table : user column : email;
+    private String  phone_num; // phone_num table : user, column : phone_num;
+    private int  role_id; // email table : user column : role_id;
 }

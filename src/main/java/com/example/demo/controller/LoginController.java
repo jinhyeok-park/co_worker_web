@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
 
-
     @Autowired
     private TestMapper userMapper;
 

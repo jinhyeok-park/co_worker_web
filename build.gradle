@@ -28,16 +28,13 @@ dependencies {
 
 	// MyBatis Spring Boot Starter
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
-//	implementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '3.0.3'
-//	implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.3.0'
 	implementation 'com.mysql:mysql-connector-j:8.3.0'
+	//lombok
+//	implementation 'org.projectlombok:lombok:1.18.30'
+//	compileOnly 'org.projectlombok:lombok:1.18.30'
 
-	// MySQL 데이터베이스 드라이버
-	//runtimeOnly 'mysql:mysql-connector-java' // 사용하려는 최신 버전으로 수정
-	//runtimeOnly 'mysql:mysql-connector-java:8.0.28'
-	//implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-	//implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.3.0'
-	//implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.0.31'
+	compileOnly 'org.projectlombok:lombok:1.18.30'
+	annotationProcessor 'org.projectlombok:lombok:1.18.30'
 
 
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
