@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import com.example.demo.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,9 +29,20 @@ public class SignUpController {
     @PostMapping("signup")
     public ModelAndView registerUser(@RequestParam("username") String username,
                                      @RequestParam("password") String password,
-                                     @RequestParam("email") String email) {
-
-        ModelAndView mav = new ModelAndView("redirect:/"); // 로그인 페이지로 리다이렉트
-        return mav;
+                                     @RequestParam("email") String email,
+                                     @RequestParam("nickname") String nickname,
+                                     @RequestParam("phoneNum") String phoneNum) {
+        try
+        {
+            userMapper.insertUser(username, password, nickname, email, phoneNum, 0);
+        }
+        catch (Exception e)
+        {
+            ModelAndView mav = new ModelAndView("SignUpForm");
+            mav.addObject("user", new User());
+//            mav.addObject("error", e.getMessage());
+            return mav;
+        }
+        return new ModelAndView("redirect:/");
     }
 }
