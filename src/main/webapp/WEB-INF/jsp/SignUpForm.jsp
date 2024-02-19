@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원 가입</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/signup.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="logo">
@@ -14,6 +15,10 @@
 </div>
 <form action="/signup" method="post">
     <h2>회원 가입</h2>
+    <label for="user_id">ID:</label>
+    <input type="text" id="user_id" name="user_id" required>
+    <button type= 'button' id="checkUserIdBtn">중복확인</button>
+
     <label for="username">이름:</label>
     <input type="text" id="username" name="username" required>
 
@@ -31,7 +36,7 @@
 
     <input type="submit" value="가입하기">
 </form>
-<script src="js/signup.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/signup.js"></script>
 </body>
 </html>
 

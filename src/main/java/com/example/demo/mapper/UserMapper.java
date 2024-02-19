@@ -8,14 +8,16 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface UserMapper {
-    @Insert("INSERT INTO user(user_name, password_hash, nickname, email, phone_num, role_id) " +
-            "VALUES(#{username}, #{password}, #{nickname}, #{email}, #{phoneNum}, #{roleId})")
-    void insertUser(@Param("username") String username,
+    @Insert("INSERT INTO user(user_id, user_name, pwd, nickname, email, phone_num, role_id) " +
+            "VALUES(#{user_id}, #{username}, #{password}, #{nickname}, #{email}, #{phoneNum}, #{roleId})")
+    void insertUser(@Param("user_id")  String user_id,
+                    @Param("username") String username,
                     @Param("password") String password,
                     @Param("nickname") String nickname,
                     @Param("email") String email,
                     @Param("phoneNum") String phoneNum,
                     @Param("roleId") int roleId);
-    @Select("SELECT * FROM user WHERE username = #{username}")
-    User findUserByUsername(@Param("username") String username);
+
+    @Select("SELECT * FROM user WHERE user_id = #{user_id}")
+    User findUserByUsername(@Param("user_id") String user_id);
 }

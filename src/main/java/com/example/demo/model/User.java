@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Bean;
 //회원 가입시에 user 객체를 생성하는 데 사용될 것이고, 이 데이터를 DB에 저장해서 관리해야할 것임
 @Data
 public class User {
+
+    private String  user_id;
     private String  username; // username table : user column : user_name
     private String  password; // password table : user column : passworkd_hash;
     private String  nickname; // nickname table : user column : nickname;
