@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Bean;
 public class User {
 
     private String  user_id;
-    private String  username; // username table : user column : user_name
-    private String  password; // password table : user column : passworkd_hash;
+    private String  user_name; // username table : user column : user_name
+    private String  pwd; // password table : user column : passworkd_hash;
     private String  nickname; // nickname table : user column : nickname;
     private String  email; // email table : user column : email;
     private String  phone_num; // phone_num table : user, column : phone_num;

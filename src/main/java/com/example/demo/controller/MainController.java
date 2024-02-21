@@ -9,9 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class MainController {
 
     @GetMapping("/")
-    public String index()
+    public ModelAndView mainp()
     {
-        return "index";
+        return new ModelAndView("/index");
     }
-
 }

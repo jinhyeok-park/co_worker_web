@@ -8,5 +8,8 @@
 <form action="/login">
     <input type="submit" value="Login" />
 </form>
+<form action="/signup">
+    <input type="submit" value="signup" />
+</form>
 </body>
 </html>
