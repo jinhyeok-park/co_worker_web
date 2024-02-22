@@ -39,7 +39,7 @@ public class LoginController {
             System.out.println("hit session");
             session.setAttribute("user_id", user_id);
             session.setMaxInactiveInterval(600);
-            ModelAndView mav = new ModelAndView("redirect:/index");
+            ModelAndView mav = new ModelAndView("redirect:/"); //여기서  :이후는 url값이됨,
             return mav;
         }
         else
