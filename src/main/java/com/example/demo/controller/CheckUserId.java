@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired; // 필요한 impo
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
 
-@Controller
+@RestController
 public class CheckUserId {
 
 //    private final UserMapper userMapper;

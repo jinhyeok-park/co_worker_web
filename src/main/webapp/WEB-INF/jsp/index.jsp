@@ -7,6 +7,7 @@
     <title>Hello Page</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/index.css">
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=63e52530f05ff3afd5fe6e56e3f067a4&libraries=services,clusterer,drawing"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <h1>Hello this is index page!</h1>
@@ -23,8 +24,8 @@
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="default" id="keyword" size="13">
-                    <button type="submit">검색하기</button>
+                    키워드 : <input type="text" placeholder='search' id="keyword" size="13">
+                    <button type="submit" id='search' >검색하기</button>
                 </form>
             </div>
         </div>
