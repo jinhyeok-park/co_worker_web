@@ -13,7 +13,6 @@ script.onload = () => {
             center: new kakao.maps.LatLng(37.50802, 127.062835),
             level: 3
         };
-
         map = new kakao.maps.Map(node, options); // 지도 생성
 
 //        var listEl = document.getElementById('placesList'),
@@ -66,14 +65,14 @@ function searchPlaces()
         data: { keyword : keyword },
         success: function(response)
         {
-            if (response != null)
+            console.log(response);
+            if (response.length != 0)
             {
-                //update(response);
+                update(response);
             }
             else
             {
                 alert("검색 결과가 존재하지 않습니다.");
-                //update(postData);
             }
         }
     });

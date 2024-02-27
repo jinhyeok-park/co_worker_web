@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-
-
+<%
+    boolean isLoggin = false;
+    if (session != null && session.getAttribute("user_id") != null)
+    {
+        isLoggin = true;
+    }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,12 +15,29 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-<h1>Hello this is index page!</h1>
-<form action="/login">
-    <input type="submit" value="Login" />
-</form>
+<h1>CO-WORKER HOME PAGE!</h1>
+<%
+    if (isLoggin)
+    {
+%>
+        <form action="/logout" method="post">
+            <input type="submit" value="Logout" />
+        </form>
+<%    }
+    else
+    {
+%>
+        <form action="/login">
+            <input type="submit" value="Login" />
+        </form>
+<%
+    }
+%>
 <form action="/signup">
     <input type="submit" value="signup" />
+</form>
+<form action="/posts_Collection">
+    <input type="submit" value="Posts" />
 </form>
 <div class="map_wrap">
     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
