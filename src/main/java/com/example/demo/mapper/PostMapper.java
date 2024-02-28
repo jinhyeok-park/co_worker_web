@@ -11,10 +11,11 @@ import java.util.ArrayList;
 @Mapper
 public interface PostMapper {
     @Insert("INSERT INTO post(user_id, title, content, address,axis_x, axis_y)" +
-            "VALUES(#{user_id}, #{title}, #{content}, #{axis_x}, #{axis_y})")
+            "VALUES(#{user_id}, #{title}, #{content},#{address}, #{axis_x}, #{axis_y})")
     void    insertPost(@Param("user_id") String user_id,
                        @Param("title") String title,
                        @Param("content") String content,
+                       @Param("address") String address,
                        @Param("axis_x") double axis_x,
                        @Param("axis_y") double axis_y);
 

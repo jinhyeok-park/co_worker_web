@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.mapper.PostMapper;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.User;
 import jakarta.servlet.http.HttpSession;
@@ -29,6 +30,7 @@ public class LoginController {
     public ModelAndView loginUser(@RequestParam("user_id") String user_id,
                                @RequestParam("pwd") String pwd,
                                   HttpSession session){
+
 
         System.out.println("hit login post controller");
         System.out.println(user_id);
