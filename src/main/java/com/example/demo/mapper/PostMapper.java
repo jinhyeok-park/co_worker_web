@@ -22,6 +22,9 @@ public interface PostMapper {
     @Select("SELECT * FROM post WHERE user_id = #{user_id}")
     Post findPostByUserID(@Param("user_id") String user_id);
 
+    @Select("SELECT * FROM post WHERE proposal_id = #{proposal_id}")
+    Post findPostByProposal_Id(@Param("proposal_id") String proposal_id);
+
     @Select("SELECT * FROM post WHERE title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%')")
     ArrayList<Post> findByTitleOrContentContaining(String keyword);
 

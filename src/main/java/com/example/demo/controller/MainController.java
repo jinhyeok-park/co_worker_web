@@ -28,10 +28,10 @@ public class MainController {
 
         json = toJson(post);
         json = json.replace("\\n", "<br>");
-        mav.addObject("post", json);
+        mav.addObject("postdata", json);
         return mav;
     }
-    private String toJson(ArrayList<Post> post)
+    public static String toJson(ArrayList<Post> post)
     {
         String json                 = "";
         ObjectMapper objectMapper   = new ObjectMapper();

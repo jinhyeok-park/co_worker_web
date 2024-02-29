@@ -57,7 +57,7 @@
     </div>
 </div>
 <script>
- var postData = JSON.parse('${post}');
+ var postData = JSON.parse('${postdata}');
 </script>
 <script src="${pageContext.request.contextPath}/resource/js/index.js"></script>
 </body>
