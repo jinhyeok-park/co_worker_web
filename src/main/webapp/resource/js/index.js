@@ -86,6 +86,8 @@ function update(searchedDbData)
 
     var bounds = new kakao.maps.LatLngBounds();
     var fragment = document.createDocumentFragment();
+    if (searchedDbData)
+    {
 
     searchedDbData.forEach(function(data) {
         var markerPosition = new kakao.maps.LatLng(data.axis_x, data.axis_y);
@@ -97,6 +99,7 @@ function update(searchedDbData)
 
         bounds.extend(markerPosition); // 지도 범위 확장
     });
+    }
 
     document.getElementById('placesList').appendChild(fragment);
     map.setBounds(bounds); // 지도 범위 조정

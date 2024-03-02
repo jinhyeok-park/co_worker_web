@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%--
 <%
     boolean isLoggin = false;
     if (session != null && session.getAttribute("user_id") != null)
@@ -6,6 +8,7 @@
         isLoggin = true;
     }
 %>
+--%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,23 +19,19 @@
 </head>
 <body>
 <h1>CO-WORKER HOME PAGE!</h1>
-<%
-    if (isLoggin)
-    {
-%>
+<c:choose>
+    <c:when test="${not empty sessionScope.user_id}">
         <form action="/logout" method="post">
             <input type="submit" value="Logout" />
         </form>
-<%    }
-    else
-    {
-%>
+    </c:when>
+    <c:otherwise>
         <form action="/login">
             <input type="submit" value="Login" />
         </form>
-<%
-    }
-%>
+    </c:otherwise>
+</c:choose>
+
 <form action="/signup">
     <input type="submit" value="signup" />
 </form>

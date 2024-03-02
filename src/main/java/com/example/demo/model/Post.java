@@ -13,4 +13,6 @@ public class Post {
     public String address;
     public double axis_x;
     public double axis_y;
+    public long apply_limit;
+    public long apply_count;
 }

@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.mapper.CommentMapper;
-import com.example.demo.model.Comment;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.math.BigInteger;
 
 @RestController
-public class SetCommentController {
+public class CommentController {
     @Autowired
     CommentMapper commentMapper;
 

@@ -17,6 +17,8 @@
 
             <label for="content">내용:</label>
             <textarea id="content" name="content" rows="10" required></textarea>
+            <label for="apply_limit">지원 가능 수:</label>
+            <input type="number" id="apply_limit" name="apply_limit" value="0" min="0">
             <input type="hidden" id="load_x" name="axis_x">
             <input type="hidden" id="load_y" name="axis_y">
             <input type="hidden" id="address" name="address">

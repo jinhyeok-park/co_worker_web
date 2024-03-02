@@ -17,6 +17,9 @@
 </head>
 <body>
 <h1> 이곳은 게시판 입니다.</h1>
+<form action="/newpost">
+  <button type="submit">new posting</button>
+</form>
 <c:forEach var="post" items="${postdata}">
    <div>
       <a href="/post/${post.proposal_id}">${post.title}</a>

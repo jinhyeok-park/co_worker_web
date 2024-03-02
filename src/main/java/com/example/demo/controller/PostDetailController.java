@@ -24,9 +24,9 @@ public class PostDetailController {
     CommentMapper commentMapper;
 
     @GetMapping("/post/{postid}")
-    public ModelAndView showPostDetail(@PathVariable("postid") BigInteger postId)
+    public ModelAndView showPostDetail(@PathVariable("postid") long postId)
     {
-        Post detailPost = postMapper.findPostByProposal_Id(postId.toString());
+        Post detailPost = postMapper.findPostByProposal_Id(postId);
         ArrayList<Comment> comments = commentMapper.selectCommentByProposal_id(postId);
         ModelAndView mav = new ModelAndView("postDetailPage");
         mav.addObject("detailPost", detailPost);

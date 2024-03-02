@@ -27,11 +27,15 @@ public class NewPostController {
                                 @RequestParam("content") String content,
                                 @RequestParam("address") String address,
                                 @RequestParam("axis_x") String axis_x,
-                                @RequestParam("axis_y") String axis_y)
+                                @RequestParam("axis_y") String axis_y,
+                                @RequestParam("apply_limit") long apply_limit)
     {
-        postMapper.insertPost((String)session.getAttribute("user_id"), title, content, address, Double.parseDouble(axis_x), Double.parseDouble(axis_y));
         System.out.println("hit new post");
-        ModelAndView mav = new ModelAndView("redierct:/posts_Collection");
+        System.out.println(apply_limit);
+        double x = !axis_x.isEmpty() ? Double.parseDouble(axis_x) : 0.0;
+        double y = !axis_y.isEmpty() ? Double.parseDouble(axis_y) : 0.0;
+        postMapper.insertPost((String)session.getAttribute("user_id"), title, content, address, x, y, (int)apply_limit);
+        ModelAndView mav = new ModelAndView("redirect:/posts_Collection");
         return mav;
     }
 }

@@ -19,5 +19,5 @@ public interface CommentMapper {
                        @Param("content") String content );
 
     @Select("SELECT * FROM comment WHERE proposal_id = #{proposal_id}")
-    ArrayList<Comment> selectCommentByProposal_id(@Param("proposal_id") BigInteger probosal_id);
+    ArrayList<Comment> selectCommentByProposal_id(@Param("proposal_id") long probosal_id);
 }

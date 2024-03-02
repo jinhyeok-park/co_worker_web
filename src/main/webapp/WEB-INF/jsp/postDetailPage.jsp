@@ -6,21 +6,26 @@
     <meta charset="UTF-8">
     <title>게시글</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/postDetail.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="container">
     <h1 class="post-title">게시물 제목: ${detailPost.title}</h1>
+    <h2 class="apply-status"> 최대 지원자 ${detailPost.apply_limit}</h2>
+    <h2>현재 지원자: <span id="current-applicants">${detailPost.apply_count}</span></h2>
     <div class="post-metadata">
             작성자: ${detailPost.user_id}
         </div>
         <div class="post-content">
             ${detailPost.content}
         </div>
+     <button type="button" class="apply-button" name="apply_id" value="${detailPost.proposal_id}">지원하기</button>
+
 </div>
 <div class="container">
       <c:forEach var="comment" items="${comments}">
          <div>
-            ${comment.content}
+            ${comment.user_id} : ${comment.content}
            </div>
       </c:forEach>
         <h2>댓글</h2>
@@ -30,6 +35,6 @@
             <button type="submit">댓글 작성</button>
         </form>
     </div>
-    <script src="${pageContext.request.contextPath}/resource/js/newpost.js"></script>
+    <script src="${pageContext.request.contextPath}/resource/js/postDetail.js"></script>
 </body>
 </html>
