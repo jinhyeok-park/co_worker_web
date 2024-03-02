@@ -1,6 +1,4 @@
 window.onload = () => {
-    alert("apply controller ajax");
-
     // 버튼의 ID 대신 클래스 사용을 고려하세요. 예: class="apply-button"
     $(".apply-button").click(function(e) {
         e.preventDefault();

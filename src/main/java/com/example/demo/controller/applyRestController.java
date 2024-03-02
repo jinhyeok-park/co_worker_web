@@ -34,7 +34,7 @@ public class applyRestController {
         {
             return ("fail");
         }
-        else if (post.getApply_count() >= post.getApply_limit())
+        else if (post.getApply_accept_count() >= post.getApply_limit())
         {
             return ("limit_over");
         }

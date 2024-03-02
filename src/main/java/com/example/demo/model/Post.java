@@ -15,4 +15,6 @@ public class Post {
     public double axis_y;
     public long apply_limit;
     public long apply_count;
+
+    public long apply_accept_count;
 }

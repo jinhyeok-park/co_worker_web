@@ -11,7 +11,8 @@
 <body>
 <div class="container">
     <h1 class="post-title">게시물 제목: ${detailPost.title}</h1>
-    <h2 class="apply-status"> 최대 지원자 ${detailPost.apply_limit}</h2>
+    <h2 class="apply-status"> 최대 지원 가능 수 ${detailPost.apply_limit}</h2>
+    <h2 class="apply-status"> 지원 수락한 수 ${detailPost.apply_accept_count}</h2>
     <h2>현재 지원자: <span id="current-applicants">${detailPost.apply_count}</span></h2>
     <div class="post-metadata">
             작성자: ${detailPost.user_id}
@@ -19,8 +20,11 @@
         <div class="post-content">
             ${detailPost.content}
         </div>
-     <button type="button" class="apply-button" name="apply_id" value="${detailPost.proposal_id}">지원하기</button>
-
+        <c:choose>
+            <c:when test="${not empty sessionScope.user_id and sessionScope.user_id ne detailPost.user_id}">
+                <button type="button" class="apply-button" name="apply_id" value="${detailPost.proposal_id}">지원하기</button>
+            </c:when>
+        </c:choose>
 </div>
 <div class="container">
       <c:forEach var="comment" items="${comments}">
