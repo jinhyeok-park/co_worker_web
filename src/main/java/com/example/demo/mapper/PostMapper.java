@@ -25,7 +25,7 @@ public interface PostMapper {
     void    applyCountMinus(@Param("proposal_id") String proposal_id);
 
     @Select("SELECT * FROM post WHERE user_id = #{user_id}")
-    Post findPostByUserID(@Param("user_id") String user_id);
+    ArrayList<Post> findPostsByUserID(@Param("user_id") String user_id);
 
     @Select("SELECT * FROM post WHERE proposal_id = #{proposal_id}")
     Post findPostByProposal_Id(@Param("proposal_id") long proposal_id);

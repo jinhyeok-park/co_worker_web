@@ -24,6 +24,9 @@
         <form action="/logout" method="post">
             <input type="submit" value="Logout" />
         </form>
+        <form action="/mypage" method="GET">
+            <input type="submit" value="mypage" />
+        </form>
     </c:when>
     <c:otherwise>
         <form action="/login">
