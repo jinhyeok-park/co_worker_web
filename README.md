@@ -1,0 +1,11 @@
+Skill Stack
+
+Spring boot
+JSP
+JSTL, JQuery
+JS
+CSS
+HTML
+MYBATIS
+MYSQL - DBEAVER
+LOMBOKC lib
