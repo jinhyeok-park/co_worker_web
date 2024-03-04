@@ -8,4 +8,5 @@ public class User_applicants {
     long    userApplicants_id;
     String  user_id;
     long    proposal_id;
+    String  status;
 }

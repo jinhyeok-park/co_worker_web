@@ -1,10 +1,8 @@
 package com.example.demo.mapper;
 
 import com.example.demo.model.Post;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import com.example.demo.model.User_applicants;
+import org.apache.ibatis.annotations.*;
 
 import java.util.ArrayList;
 
@@ -20,6 +18,19 @@ public interface User_applicantsMapper {
                          @Param("user_id") String user_id);
 
     @Select("SELECT proposal_id FROM user_applicants WHERE user_id = #{user_id}")
-    ArrayList<Long> selectPostsByUserId(@Param("user_id") String user_id);
+    ArrayList<Long> selectProposal_idByUserId(@Param("user_id") String user_id);
 
+    @Select("SELECT * FROM user_applicants WHERE proposal_id = #{proposal_id}")
+    ArrayList<User_applicants> selectUser_applicantsByProposal_id(@Param("proposal_id") long proposal_id);
+
+    @Select("SELECT * FROM user_applicants WHERE user_id = #{user_id}")
+    ArrayList<User_applicants> selectUser_applicantsByUser_id(@Param("user_id") String user_id);
+
+    @Update("UPDATE user_applicants SET status = 1 WHERE proposal_id = #{proposal_id} AND user_id = #{user_id}")
+    void    acceptApplier(@Param("proposal_id") long proposal_id,
+                          @Param("user_id") String user_id);
+
+    @Update("UPDATE user_applicants SET status = 2 WHERE proposal_id = #{proposal_id} AND user_id = #{user_id}")
+    void    rejectApplier(@Param("proposal_id") long proposal_id,
+                          @Param("user_id") String user_id);
 }

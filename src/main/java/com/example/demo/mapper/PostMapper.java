@@ -24,6 +24,12 @@ public interface PostMapper {
     @Update("UPDATE post SET apply_count = apply_count - 1 WHERE proposal_id = #{proposal_id}")
     void    applyCountMinus(@Param("proposal_id") String proposal_id);
 
+    @Update("UPDATE post SET apply_accept_count = apply_accept_count + 1 WHERE proposal_id = #{proposal_id}")
+    void applyAcceptCountPlus(@Param("proposal_id") long proposal_id);
+
+    @Update("UPDATE post SET apply_accept_count = apply_accept_count - 1 WHERE proposal_id = #{proposal_id}")
+    void applyAcceptCountMinus(@Param("proposal_id") long proposal_id);
+
     @Select("SELECT * FROM post WHERE user_id = #{user_id}")
     ArrayList<Post> findPostsByUserID(@Param("user_id") String user_id);
 

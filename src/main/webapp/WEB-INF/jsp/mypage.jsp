@@ -20,23 +20,54 @@
     <div class="user-contents">
         <h2>내가 작성한 글</h2>
         <ul id="myPosts">
-        <c:forEach var="post" items="${mypostdata}">
-           <div>
-              <a href="/post/${post.proposal_id}">${post.title}</a>
-             </div>
-        </c:forEach>
-            <!-- 사용자가 작성한 글 목록이 여기에 표시됩니다. -->
+            <c:forEach var="post" items="${mypostdata}">
+                <li>
+                    <div class="post-item">
+                        <div class="flex justify-between items-center">
+                            <a href="/post/${post.proposal_id}" class="post-title">${post.title}</a>
+                            <button class="toggle-btn">+</button>
+                        </div>
+                        <div class="hidden post-details">
+                            <ul class="applications">
+                                <c:forEach var="appliers" items="${appliers}">
+                                <c:if test="${post.apply_accept_count < apply_limit}">
+                                    <c:if test="${post.proposal_id eq appliers.proposal_id}">
+                                    <li class="flex items-center justify-between">
+                                        <span>${appliers.user_id}</span>
+                                        <form action="/MyPageButtonController" method="post">
+                                            <input type="submit" name="action" value="accept">
+                                            <input type="submit" name="action" value="reject">
+                                            <input type="hidden" name="proposal_id" value="${appliers.proposal_id}">
+                                            <input type="hidden" name="user_id" value="${appliers.user_id}">
+                                        </form>
+                                        </form>
+                                    </li>
+                                    </c:if>
+                                    </c:if>
+                                </c:forEach>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </c:forEach>
         </ul>
+
     </div>
 
     <div class="application-history">
         <h2>내가 지원한 내역</h2>
         <ul id="myApplications">
-        <c:forEach var="post" items="${myapplydata}">
-                   <div>
-                      <a href="/post/${post.proposal_id}">${post.title}</a>
-                     </div>
-               </c:forEach>
+                     <c:forEach var="post" items="${myapplydata}">
+                         <c:forEach var="status" items="${myapplystatus}">
+                             <c:if test="${post.proposal_id eq status.proposal_id}">
+                                 <div>
+                                     <a href="/post/${post.proposal_id}">${post.title}</a>
+                                     status : "${status.status}"
+                                 </div>
+                             </c:if>
+                         </c:forEach>
+                     </c:forEach>
+
             <!-- 사용자가 지원한 내역이 여기에 표시됩니다. -->
         </ul>
     </div>
