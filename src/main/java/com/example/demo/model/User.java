@@ -14,3 +14,4 @@ public class User {
     private String  phone_num; // phone_num table : user, column : phone_num;
     private int  role_id; // email table : user column : role_id;
 }
+

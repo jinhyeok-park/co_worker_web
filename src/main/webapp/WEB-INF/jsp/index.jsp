@@ -1,63 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%--
-<%
-    boolean isLoggin = false;
-    if (session != null && session.getAttribute("user_id") != null)
-    {
-        isLoggin = true;
-    }
-%>
---%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/index.css">
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=63e52530f05ff3afd5fe6e56e3f067a4&libraries=services,clusterer,drawing"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-<body>
-<h1>CO-WORKER HOME PAGE!</h1>
-<c:choose>
-    <c:when test="${not empty sessionScope.user_id}">
-        <form action="/logout" method="post">
-            <input type="submit" value="Logout" />
-        </form>
-        <form action="/mypage" method="GET">
-            <input type="submit" value="mypage" />
-        </form>
-    </c:when>
-    <c:otherwise>
-        <form action="/login">
-            <input type="submit" value="Login" />
-        </form>
-    </c:otherwise>
-</c:choose>
-
-<form action="/signup">
-    <input type="submit" value="signup" />
-</form>
-<form action="/posts_Collection">
-    <input type="submit" value="Posts" />
-</form>
-<div class="map_wrap">
-    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-
-    <div id="menu_wrap" class="bg_white">
-        <div class="option">
-            <div>
-                <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" placeholder='search' id="keyword" size="13">
-                    <button type="submit" id='search' >검색하기</button>
+<body class="bg-gray-100">
+    <div class="container mx-auto">
+        <div class="flex flex-wrap justify-between items-center py-4">
+            <h1 class="text-2xl font-bold text-gray-900 mb-4">CO-WORKER HOME PAGE!</h1>
+            <div class="flex space-x-2">
+                <c:choose>
+                    <c:when test="${not empty sessionScope.user_id}">
+                        <form action="/logout" method="post">
+                            <input type="submit" value="Logout" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
+                        </form>
+                        <form action="/mypage" method="GET">
+                            <input type="submit" value="My Page" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
+                        </form>
+                    </c:when>
+                    <c:otherwise>
+                        <form action="/login">
+                            <input type="submit" value="Login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
+                        </form>
+                    </c:otherwise>
+                </c:choose>
+                <form action="/signup">
+                    <input type="submit" value="Sign Up" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
+                </form>
+                <form action="/posts_Collection">
+                    <input type="submit" value="Posts" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
                 </form>
             </div>
         </div>
-        <hr>
-        <ul id="placesList"></ul>
-        <div id="pagination"></div>
+        <div class="flex justify-center">
+            <div class="map_wrap" style="width: 90%; height: 500px;">
+                <div id="map" style="width:100%; height:100%; position:relative; overflow:hidden;" class="rounded-lg shadow"></div>
+                <div id="menu_wrap" class="bg_white">
+                    <div class="option">
+                        <form onsubmit="searchPlaces(); return false;" class="flex space-x-2">
+                            <input type="text" placeholder='Search' id="keyword" size="15" class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <button type="submit" id='search' class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">검색하기</button>
+                        </form>
+                    </div>
+                    <hr>
+                    <ul id="placesList" class="list-disc pl-5"></ul>
+                    <div id="pagination" class="py-2"></div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 <script>
  var postData = JSON.parse('${postdata}');
 </script>
