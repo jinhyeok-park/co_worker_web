@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.mapper.MemberMapper;
 import com.example.demo.mapper.PostMapper;
 import com.example.demo.mapper.User_applicantsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class MyPageButtonController {
     @Autowired
     private User_applicantsMapper userApplicantsMapper;
 
+    @Autowired
+    private MemberMapper memberMapper;
+
     @PostMapping("/MyPageButtonController")
     public ModelAndView ButtonAction(@RequestParam("action") String action,
                                      @RequestParam("proposal_id") long proposal_id,
@@ -27,6 +31,7 @@ public class MyPageButtonController {
             System.out.println("hit accppt");
             postMapper.applyAcceptCountPlus(proposal_id);
             userApplicantsMapper.acceptApplier(proposal_id, user_id);
+            memberMapper.insertMemeber(user_id, proposal_id);
         }
         else if (action.equals("reject"))
         {

@@ -16,7 +16,7 @@ public class ChattingController {
 
     @Autowired
     private Chat_roomMapper chatRoomMapper;
-
+    // load all db chatting data ;
     @SendTo("/room/{roomId}")
     @MessageMapping("/{roomId}")
     public ChatDTO chatRoomCreate(@DestinationVariable long roomId, ChatDTO message)
@@ -24,7 +24,6 @@ public class ChattingController {
         //room exsist?
         //yes do not make room
         //no make the room
-        System.out.println(message.getMessage());
         return message;
     }
 }
