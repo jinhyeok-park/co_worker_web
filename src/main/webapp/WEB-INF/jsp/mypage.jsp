@@ -25,7 +25,9 @@
                     <div class="post-item">
                         <div class="flex justify-between items-center">
                             <a href="/post/${post.proposal_id}" class="post-title">${post.title}</a>
-                            <button class="toggle-btn">+</button>
+                             <form action="/chatstart/${post.proposal_id}" method="GET">
+                                 <input type="submit" value="chatting">
+                             </form>
                         </div>
                         <div class="hidden post-details">
                             <ul class="applications">
@@ -63,6 +65,10 @@
                                  <div>
                                      <a href="/post/${post.proposal_id}">${post.title}</a>
                                      status : "${status.status}"
+                                     <form action="/chatstart/${post.proposal_id}" method="GET">
+                                     <input type="submit" value="chatting">
+                                     </form>
+
                                  </div>
                              </c:if>
                          </c:forEach>
