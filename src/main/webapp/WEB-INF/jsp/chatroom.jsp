@@ -1,26 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 <html>
 <head>
     <title>chatting Page</title>
 </head>
-<body>
-    <h1>Hello, this is chatting room</h1>
-    <div>
-        <input type="text" id="messageContent" placeholder="Type a message..."/>
-        <input type="hidden" id="user_id" value="<%= (String)session.getAttribute("user_id") %>">
-        <button onclick="sendMessage()">Send</button>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-white shadow-md rounded-lg max-w-md mx-auto">
+            <div class="border-b border-gray-300 p-4">
+                <div id="getProposal_id" data-proposal-id="${proposal_id}"></div>
+                <h1 class="text-lg font-semibold text-gray-700">Chatting Room</h1>
+            </div>
+            <div id="messages" class="max-h-96 overflow-y-auto p-4 space-y-2">
+                <!-- 메시지 표시 영역 -->
+                <c:forEach var="msg" items="${msgs}">
+                    <div class="p-2 rounded-lg bg-blue-100 max-w-max">
+                        <span class="text-blue-800">${msg.user_id} : ${msg.message}</span>
+                    </div>
+                </c:forEach>
+            </div>
+            <div class="p-4 border-t border-gray-300">
+                <input type="text" id="messageContent" placeholder="Type a message..." class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input type="hidden" id="user_id" value="<%= (String)session.getAttribute("user_id") %>" />
+                <button onclick="sendMessage()" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Send</button>
+            </div>
+        </div>
     </div>
-    <div id="getProposal_id" data-proposal-id="${proposal_id}"></div>
-  <div id="messages" class="max-h-[300px] overflow-y-auto border border-gray-300 p-2">
-      <!-- 메시지 표시 영역 -->
-      <c:forEach var="msg" items="${msgs}">
-          <div><span>${msg.user_id} : ${msg.message}</span></div>
-      </c:forEach>
-  </div>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
     <script src="${pageContext.request.contextPath}/resource/js/STOMP.js"></script>
 </body>
 </html>
