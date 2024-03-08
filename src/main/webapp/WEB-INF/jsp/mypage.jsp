@@ -17,44 +17,45 @@
         <button id="editUserInfo">정보 수정</button>
     </div>
 
-    <div class="user-contents">
-        <h2>내가 작성한 글</h2>
-        <ul id="myPosts">
-            <c:forEach var="post" items="${mypostdata}">
-                <li>
-                    <div class="post-item">
-                        <div class="flex justify-between items-center">
-                            <a href="/post/${post.proposal_id}" class="post-title">${post.title}</a>
-                              <form class="chatForm" action="/chatstart/${post.proposal_id}" method="GET" onsubmit="openChatWindow(event)">
-                             <input type="submit" value="chatting">
-                             </form>
-                        </div>
-                        <div class="hidden post-details">
-                            <ul class="applications">
-                                <c:forEach var="appliers" items="${appliers}">
-                                <c:if test="${post.apply_accept_count < apply_limit}">
-                                    <c:if test="${post.proposal_id eq appliers.proposal_id}">
-                                    <li class="flex items-center justify-between">
-                                        <span>${appliers.user_id}</span>
-                                        <form action="/MyPageButtonController" method="post">
-                                            <input type="submit" name="action" value="accept">
-                                            <input type="submit" name="action" value="reject">
-                                            <input type="hidden" name="proposal_id" value="${appliers.proposal_id}">
-                                            <input type="hidden" name="user_id" value="${appliers.user_id}">
-                                        </form>
-                                        </form>
-                                    </li>
-                                    </c:if>
-                                    </c:if>
-                                </c:forEach>
-                            </ul>
-                        </div>
+<div class="user-contents">
+    <h2>내가 작성한 글</h2>
+    <ul id="myPosts">
+        <c:forEach var="post" items="${mypostdata}">
+            <li>
+                <div class="post-item">
+                    <div class="flex justify-between items-center">
+                        <a href="/post/${post.proposal_id}" class="post-title">${post.title}</a>
+                        <form class="chatForm" action="/chatstart/${post.proposal_id}" method="GET" onsubmit="openChatWindow(event)">
+                            <input type="submit" value="chatting">
+                        </form>
                     </div>
-                </li>
-            </c:forEach>
-        </ul>
+                    <div class="hidden post-details">
+                        <ul class="applications">
+                            <c:forEach var="appliers" items="${appliers}">
+                                <c:if test="${post.apply_accept_count < post.apply_limit}">
+                                    <c:if test="${post.proposal_id eq appliers.proposal_id}">
+                                        <c:if test="${appliers.status eq '0'}">
+                                        <li class="flex items-center justify-between">
+                                            <span>${appliers.user_id}</span>
+                                            <form action="/MyPageButtonController" method="post">
+                                                <input type="submit" name="action" value="accept">
+                                                <input type="submit" name="action" value="reject">
+                                                <input type="hidden" name="proposal_id" value="${appliers.proposal_id}">
+                                                <input type="hidden" name="user_id" value="${appliers.user_id}">
+                                            </form>
+                                        </li>
+                                        </c:if>
+                                    </c:if>
+                                </c:if>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </c:forEach>
+    </ul>
+</div>
 
-    </div>
 
     <div class="application-history">
         <h2>내가 지원한 내역</h2>

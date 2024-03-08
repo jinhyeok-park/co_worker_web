@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function()
 
 function openChatWindow(e)
 {
-    alert("hit new chatting blank");
     e.preventDefault();
 
     var form = e.target;
