@@ -40,14 +40,17 @@ window.addEventListener("DOMContentLoaded", function () {
               var messageText = document.createElement("span");
               // 테일윈드 CSS 클래스 추가
               //messageText.classList.add("text-blue-800");
+              var msgConten;
               if(entity.sender === user_id) {
                   messageElement.classList.add("bg-blue-100", "text-right", "ml-auto"); // 자신의 메시지
+                  msgContent = entity.message;
+
               } else {
                   messageElement.classList.add("bg-gray-100", "text-left"); // 상대방의 메시지
+                  msgContent = entity.sender + ": " + entity.message;
               }
 
              // 메시지 텍스트 설정
-              var msgContent = entity.sender + ": " + entity.message;
               messageText.textContent = msgContent;
 
               // span 요소를 div 요소의 자식으로 추가
