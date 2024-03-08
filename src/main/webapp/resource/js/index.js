@@ -51,13 +51,11 @@ script.onload = () => {
 function searchPlaces()
 {
     var keyword = document.getElementById('keyword').value;
-    alert(keyword);
     if (!keyword.replace(/^\s+|\s+$/g, ''))
     {
         alert('키워드를 입력해주세요!');
         return false;
     }
-    alert("ajax start");
     $.ajax({
         url: '/searchContent',
         type: 'GET',
@@ -80,7 +78,6 @@ function searchPlaces()
 
 function update(searchedDbData)
 {
-    alert("update function called");
     removeAllChildNodes(document.getElementById('placesList')); // 리스트 초기화
     removeMarker(); // 기존 마커 제거
 
