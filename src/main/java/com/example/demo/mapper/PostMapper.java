@@ -39,6 +39,9 @@ public interface PostMapper {
     @Select("SELECT * FROM post WHERE title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%')")
     ArrayList<Post> findByTitleOrContentContaining(String keyword);
 
+    @Select("SELECT * FROM post WHERE axis_x != 0 AND axis_y != 0")
+    ArrayList<Post> selectAllPostsExceptZeroLocations();
+
     @Select("SELECT * FROM post")
     ArrayList<Post> selectAllPost();
 }

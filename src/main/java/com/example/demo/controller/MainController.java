@@ -22,7 +22,7 @@ public class MainController {
     @GetMapping("/")
     public ModelAndView mainp()
     {
-        ArrayList<Post> post    = postMapper.selectAllPost();
+        ArrayList<Post> post    = postMapper.selectAllPostsExceptZeroLocations();
         ModelAndView mav        = new ModelAndView("index");
         String json             = "";
 
