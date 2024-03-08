@@ -13,18 +13,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <title>게시판</title>
 </head>
-<body>
-<h1> 이곳은 게시판 입니다.</h1>
-<form action="/newpost">
-  <button type="submit">new posting</button>
-</form>
-<c:forEach var="post" items="${postdata}">
-   <div>
-      <a href="/post/${post.proposal_id}">${post.title}</a>
-     </div>
-</c:forEach>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4">
+        <h1 class="text-2xl font-bold text-gray-900 pt-6 mb-4">게시판</h1>
+        <form action="/newpost" class="mb-4">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                새 글 작성
+            </button>
+        </form>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <c:forEach var="post" items="${postdata}">
+                <div class="bg-white shadow-lg rounded-lg p-6">
+                    <a href="/post/${post.proposal_id}" class="text-lg text-blue-500 hover:text-blue-700 font-semibold">${post.title}</a>
+                </div>
+            </c:forEach>
+        </div>
     </div>
 </body>
 </html>
