@@ -25,8 +25,8 @@
                     <div class="post-item">
                         <div class="flex justify-between items-center">
                             <a href="/post/${post.proposal_id}" class="post-title">${post.title}</a>
-                             <form action="/chatstart/${post.proposal_id}" method="GET">
-                                 <input type="submit" value="chatting">
+                              <form class="chatForm" action="/chatstart/${post.proposal_id}" method="GET" onsubmit="openChatWindow(event)">
+                             <input type="submit" value="chatting">
                              </form>
                         </div>
                         <div class="hidden post-details">
@@ -65,7 +65,7 @@
                                  <div>
                                      <a href="/post/${post.proposal_id}">${post.title}</a>
                                      status : "${status.status}"
-                                     <form action="/chatstart/${post.proposal_id}" method="GET">
+                                     <form class="chatForm" action="/chatstart/${post.proposal_id}" method="GET" onsubmit="openChatWindow(event)">
                                      <input type="submit" value="chatting">
                                      </form>
 
@@ -77,6 +77,6 @@
             <!-- 사용자가 지원한 내역이 여기에 표시됩니다. -->
         </ul>
     </div>
-<script src="${pageContext.request.contextPath}/resource/js/index.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/mypage.js"></script>
 </body>
 </html>
