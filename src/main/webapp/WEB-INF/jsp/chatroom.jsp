@@ -13,14 +13,29 @@
                 <div id="getProposal_id" data-proposal-id="${proposal_id}"></div>
                 <h1 class="text-lg font-semibold text-gray-700">Chatting Room</h1>
             </div>
-            <div id="messages" class="max-h-96 overflow-y-auto p-4 space-y-2">
-                <!-- 메시지 표시 영역 -->
-                <c:forEach var="msg" items="${msgs}">
-                    <div class="p-2 rounded-lg bg-blue-100 max-w-max">
-                        <span class="text-blue-800">${msg.user_id} : ${msg.message}</span>
-                    </div>
-                </c:forEach>
-            </div>
+<c:set var="test" value="${sessionScope.user_id}" />
+<!-- 현재 세션 사용자 ID 값 직접 출력 -->
+
+<!-- 메시지 표시 영역 -->
+<div id="messages" class="max-h-96 overflow-y-auto p-4 space-y-2">
+    <c:forEach var="msg" items="${msgs}">
+        <c:choose>
+            <c:when test="${msg.user_id eq test}">
+                <!-- 현재 세션의 사용자 ID와 메시지의 사용자 ID가 같은 경우: 오른쪽 정렬 -->
+                <div class="text-right p-2 rounded-lg bg-blue-100 max-w-max ml-auto">
+                    <span class="text-gray-800">${msg.message}</span>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <!-- 현재 세션의 사용자 ID와 메시지의 사용자 ID가 다른 경우: 왼쪽 정렬 -->
+                <div class="text-left p-2 rounded-lg bg-gray-200 max-w-max">
+                    <span class="text-gray-800">${msg.user_id} : ${msg.message}</span>
+                </div>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+</div>
+
             <div class="p-4 border-t border-gray-300">
                 <input type="text" id="messageContent" placeholder="Type a message..." class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 <input type="hidden" id="user_id" value="<%= (String)session.getAttribute("user_id") %>" />

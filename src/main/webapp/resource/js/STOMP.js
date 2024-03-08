@@ -1,5 +1,13 @@
 var stompClient = null;
 var roomId = document.getElementById("getProposal_id").getAttribute("data-proposal-id");
+var user_id = document.getElementById("user_id").value;
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter')
+    {
+        sendMessage();
+    }
+});
 
 window.addEventListener("DOMContentLoaded", function () {
 
@@ -14,23 +22,44 @@ window.addEventListener("DOMContentLoaded", function () {
             console.log("connected : " + roomId );
             stompClient.subscribe('/room/' + roomId, function (message)
             {
-                var entity = JSON.parse(message.body);
+              var entity = JSON.parse(message.body);
 
+              // 새 메시지를 위한 div 요소 생성
+              var messageElement = document.createElement("div");
+              // 테일윈드 CSS 클래스 추가
+              if(entity.sender === user_id)
+              {
+                messageElement.classList.add("p-2", "rounded-lg", "bg-blue-100", "max-w-max");
+              }
+              else
+              {
+                messageElement.classList.add("p-2", "rounded-lg", "bg-gray-200", "max-w-max");
+              }
 
-                   // 새 메시지를 위한 div 요소 생성
-                        var messageElement = document.createElement("div");
-                        messageElement.classList.add("message"); // CSS 클래스 추가 (스타일링을 위해)
+              // 메시지 텍스트를 담을 span 요소 생성
+              var messageText = document.createElement("span");
+              // 테일윈드 CSS 클래스 추가
+              //messageText.classList.add("text-blue-800");
+              if(entity.sender === user_id) {
+                  messageElement.classList.add("bg-blue-100", "text-right", "ml-auto"); // 자신의 메시지
+              } else {
+                  messageElement.classList.add("bg-gray-100", "text-left"); // 상대방의 메시지
+              }
 
-                        // 메시지 텍스트 설정
-                        var msgContent = entity.sender + ": " + entity.message;
-                        messageElement.textContent = msgContent; // 혹은 entity의 다른 속성을 사용
+             // 메시지 텍스트 설정
+              var msgContent = entity.sender + ": " + entity.message;
+              messageText.textContent = msgContent;
 
-                        // 메시지를 messages 컨테이너에 추가
-                        var messagesContainer = document.getElementById("messages");
-                        messagesContainer.appendChild(messageElement);
+              // span 요소를 div 요소의 자식으로 추가
+              messageElement.appendChild(messageText);
 
-                        // 메시지가 추가될 때마다 스크롤을 아래로 이동시키기 (선택적)
-                        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+              // 메시지를 messages 컨테이너에 추가
+              var messagesContainer = document.getElementById("messages");
+              messagesContainer.appendChild(messageElement);
+
+              // 메시지가 추가될 때마다 스크롤을 아래로 이동시키기 (선택적)
+              messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
 
             })
         })
@@ -38,12 +67,9 @@ window.addEventListener("DOMContentLoaded", function () {
 
 })
 
-    window.connect = connect; // 함수를 window 객체에 할당하여 HTML 버튼에서 접근 가능하게 함
 
 function sendMessage() {
     var messageContent = document.getElementById('messageContent').value;
-    var user_id = document.getElementById("user_id").value;
-    alert(user_id);
     if(messageContent && stompClient) {
         var chatMessage = {
             message: messageContent,
