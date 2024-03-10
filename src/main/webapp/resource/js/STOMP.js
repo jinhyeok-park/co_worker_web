@@ -20,6 +20,7 @@ window.addEventListener("DOMContentLoaded", function () {
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function () {
             console.log("connected : " + roomId );
+            ShowNotification("새로운 채팅방이 생성되었습니다.");
             stompClient.subscribe('/room/' + roomId, function (message)
             {
               var entity = JSON.parse(message.body);
@@ -76,11 +77,13 @@ function sendMessage() {
     if(messageContent && stompClient) {
         var chatMessage = {
             message: messageContent,
-            sender: user_id
+            sender: user_id,
+            room_id: roomId
             // roomId 등 필요한 다른 필드를 추가할 수 있습니다.
         };
-        // "/app" 대신 "/send" prefix를 사용하도록 수정
+        // " "/send" prefix를 사용
         stompClient.send("/send/" + roomId, {}, JSON.stringify(chatMessage));
+        stompClient.send("/send/common", {}, JSON.stringify(chatMessage));
         document.getElementById('messageContent').value = ''; // 메시지 전송 후 입력 필드 초기화
     }
 }

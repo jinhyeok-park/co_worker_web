@@ -24,7 +24,6 @@ $(document).ready(function()
                 }
                 else
                 {
-
                     $('#userIdResult').text('사용 가능한 아이디입니다.');
                     $('#userIdResult').css('color', 'green');
                     alert("사용 가능한 ID입니다.");
@@ -44,6 +43,22 @@ $(document).ready(function()
     });
 });
 
+
+function PasswordCheck()
+{
+    var password1 = document.getElementById("password").value;
+    var password2 = document.getElementById("password_check").value;
+    if (password1 != password2)
+    {
+        document.getElementById("passwordCheckFlag").style.display='block';
+        return false;
+    }
+    else
+    {
+        document.getElementById("passwordCheckFlag").style.display='none';
+        return true;
+    }
+}
 //$(document).ready(function() {
 //    $('checkUserIdBtn').click(function(e) {
 //    e.preventDefault();

@@ -5,7 +5,6 @@ document.head.appendChild(script);
 var map;
 var markers = []; // 마커를 저장할 배열
 
-
 script.onload = () => {
     kakao.maps.load(() => {
         const node = document.getElementById('map');

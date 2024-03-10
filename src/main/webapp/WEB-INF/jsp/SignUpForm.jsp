@@ -31,6 +31,11 @@
                 <input type="password" id="password" name="password" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
             <div class="mb-4">
+            <label for="password_check" class="block text-gray-700 text-sm font-bold mb-2">비밀번호 확인:</label>
+            <input type="password" id="password_check" name="password_check" onkeyup="PasswordCheck();" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div id="passwordCheckFlag">비밀 번호가 일치하지 않습니다.</div>
+            <div class="mb-4">
                 <label for="email" class="block text-gray-700 text-sm font-bold mb-2">이메일:</label>
                 <input type="email" id="email" name="email" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
@@ -40,7 +45,7 @@
             </div>
             <div class="mb-4">
                 <label for="phoneNum" class="block text-gray-700 text-sm font-bold mb-2">휴대폰 번호:</label>
-                <input type="tel" id="phoneNum" name="phoneNum" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <input type="tel" id="phoneNum" name="phoneNum" "required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
             <div class="flex items-center justify-between">
                 <input type="submit" value="가입하기" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">
