@@ -1,9 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.mapper.MemberMapper;
 import com.example.demo.mapper.PostMapper;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.Post;
 import com.example.demo.model.User;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +24,13 @@ public class PostCollectionController {
     @Autowired
     private  PostMapper postMapper;
 
+    @Autowired
+    private MemberMapper memberMapper;
+
     @GetMapping("/posts_Collection")
-    public ModelAndView showPosts()
+    public ModelAndView showPosts(HttpSession session)
     {
+        String userId = (String)session.getAttribute("user_id");
         ArrayList<Post> post    = postMapper.selectAllPost();
         String json             = "";
 
@@ -32,7 +38,8 @@ public class PostCollectionController {
         json = json.replace("\\n", "<br>");
         ModelAndView mav = new ModelAndView("/postsCollection");
         mav.addObject("postdata", post);
-        System.out.println(json);
+        ArrayList<Long> roomIds = memberMapper.selectProposal_idByUser_id(userId);
+        mav.addObject("roomIds", roomIds);
         return mav;
     }
 }

@@ -32,5 +32,9 @@
             </c:forEach>
         </div>
     </div>
+      <div id="roomIds" data-roomids="${roomIds}"></div>
+        <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resource/js/notification.js"></script>
 </body>
 </html>
