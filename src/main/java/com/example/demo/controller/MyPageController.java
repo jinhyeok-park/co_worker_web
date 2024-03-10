@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.mapper.MemberMapper;
 import com.example.demo.mapper.PostMapper;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.mapper.User_applicantsMapper;
@@ -23,6 +24,9 @@ public class MyPageController {
 
     @Autowired
     private PostMapper postMapper;
+
+    @Autowired
+    private MemberMapper memberMapper;
     @Autowired
     private User_applicantsMapper  userApplicantsMapper;
     @GetMapping("/mypage")
@@ -44,14 +48,14 @@ public class MyPageController {
         {
             appliers.addAll(userApplicantsMapper.selectUser_applicantsByProposal_id(num.getProposal_id()));
         }
+        ArrayList<Long> roomIds = memberMapper.selectProposal_idByUser_id(userId);
         ModelAndView mav = new ModelAndView("mypage");
         mav.addObject("userData", user);
         mav.addObject("mypostdata", myPosts);
         mav.addObject("myapplydata", myApplyPosts);
         mav.addObject("appliers", appliers);
         mav.addObject("myapplystatus", myApplyStatus);
-        System.out.println(myApplyStatus);
-
+        mav.addObject("roomIds", roomIds);
         return mav;
     }
 }
