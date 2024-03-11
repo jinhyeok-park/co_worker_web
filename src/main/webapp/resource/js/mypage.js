@@ -1,4 +1,5 @@
 
+
 document.addEventListener("DOMContentLoaded", function()
 {
     var forms = document.querySelectorAll(".chatForm");

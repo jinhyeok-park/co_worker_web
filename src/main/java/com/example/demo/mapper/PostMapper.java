@@ -48,4 +48,6 @@ public interface PostMapper {
     @Select("SELECT proposal_id FROM post WHERE user_id = #{user_id} and title = #{title}")
     Long selectProposal_idByTitleUser_id(@Param("user_id") String user_id,
                                          @Param("title") String title);
+    @Delete("DELETE FROM post WHERE proposal_id = #{proposal_id}")
+    void    deletePostByProposal_id(@Param("proposal_id") long proposal_id);
 }

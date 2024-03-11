@@ -33,4 +33,7 @@ public interface User_applicantsMapper {
     @Update("UPDATE user_applicants SET status = 2 WHERE proposal_id = #{proposal_id} AND user_id = #{user_id}")
     void    rejectApplier(@Param("proposal_id") long proposal_id,
                           @Param("user_id") String user_id);
+
+    @Delete("DELETE FROM user_applicants WHERE proposal_id = #{proposal_id}")
+    void    deleteUser_applicantsByProposal_id(@Param("proposal_id") long proposal_id);
 }

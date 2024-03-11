@@ -1,9 +1,6 @@
 package com.example.demo.mapper;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.ArrayList;
 
@@ -16,4 +13,7 @@ public interface MemberMapper {
 
     @Select("SELECT proposal_id FROM member WHERE user_id = #{user_id}")
     ArrayList<Long> selectProposal_idByUser_id(@Param("user_id") String user_id);
+
+    @Delete("DELETE FROM member WHERE proposal_id = #{proposal_id}")
+    void    deleteMemberByProposal_id(@Param("proposal_id") long proposal_id);
 }

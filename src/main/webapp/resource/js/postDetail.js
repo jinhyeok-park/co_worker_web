@@ -1,3 +1,23 @@
+var pro_id = JSON.parse(document.getElementById("pro_id").value);
+
+document.getElementById("postDelete").addEventListener('click', function () {
+    if (confirm("정말로 삭제하시겠습니까?")) {
+        $.ajax({
+            url: "/post/" + pro_id + "/delete",
+            type: 'DELETE',
+            success: function(res) {
+                if (res == true) {
+                    alert("삭제 되었습니다.");
+                    window.history.back();
+                } else {
+                    alert("삭제 실패");
+                }
+            }
+        });
+    }
+});
+
+
 window.onload = () => {
     // 버튼의 ID 대신 클래스 사용을 고려하세요. 예: class="apply-button"
     $(".apply-button").click(function(e) {

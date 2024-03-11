@@ -1,10 +1,7 @@
 package com.example.demo.mapper;
 
 import com.example.demo.model.Chat_msg;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.ArrayList;
 
@@ -18,4 +15,7 @@ public interface Chat_msgMapper {
 
     @Select("SELECT * FROM chat_msg WHERE room_id = #{room_id}")
     ArrayList<Chat_msg> selectAllByRoomId(@Param("room_id") long room_id);
+
+    @Delete("DELETE FROM chat_msg WHERE room_id = #{proposal_id}")
+    void    deleteChat_msgByProposal_id(@Param("proposal_id") long proposal_id);
 }

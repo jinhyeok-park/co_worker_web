@@ -15,6 +15,10 @@
     <h2 class="apply-status"> 지원 수락한 수 ${detailPost.apply_accept_count}</h2>
     <h2>현재 지원자: <span id="current-applicants">${detailPost.apply_count}</span></h2>
     <div class="post-metadata">
+<c:if test="${not empty sessionScope.user_id && sessionScope.user_id == detailPost.user_id}">
+    <input id="postDelete" type="button" value="Delete">
+</c:if>
+
             작성자: ${detailPost.user_id}
         </div>
         <div class="post-content">
@@ -39,6 +43,7 @@
             <button type="submit">댓글 작성</button>
         </form>
     </div>
+    <input type="hidden" id="pro_id" value="${detailPost.proposal_id}" />
     <script src="${pageContext.request.contextPath}/resource/js/postDetail.js"></script>
 </body>
 </html>
