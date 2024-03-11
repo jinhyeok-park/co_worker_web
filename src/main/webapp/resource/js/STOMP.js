@@ -20,7 +20,7 @@ window.addEventListener("DOMContentLoaded", function () {
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function () {
             console.log("connected : " + roomId );
-            ShowNotification("새로운 채팅방이 생성되었습니다.");
+            ShowNotification("채팅방에 입장하셨습니다.");
             stompClient.subscribe('/room/' + roomId, function (message)
             {
               var entity = JSON.parse(message.body);
@@ -79,6 +79,7 @@ function sendMessage() {
             message: messageContent,
             sender: user_id,
             room_id: roomId
+            //room_title: room_title
             // roomId 등 필요한 다른 필드를 추가할 수 있습니다.
         };
         // " "/send" prefix를 사용

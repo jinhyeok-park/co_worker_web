@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.mapper.MemberMapper;
 import com.example.demo.mapper.PostMapper;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ public class NewPostController {
 
     @Autowired
     private PostMapper postMapper;
+    @Autowired
+    private MemberMapper memberMapper;
     @GetMapping("/newpost")
     public ModelAndView showNewPostPage()
     {
@@ -30,11 +33,11 @@ public class NewPostController {
                                 @RequestParam("axis_y") String axis_y,
                                 @RequestParam("apply_limit") long apply_limit)
     {
-        System.out.println("hit new post");
-        System.out.println(apply_limit);
         double x = !axis_x.isEmpty() ? Double.parseDouble(axis_x) : 0.0;
         double y = !axis_y.isEmpty() ? Double.parseDouble(axis_y) : 0.0;
-        postMapper.insertPost((String)session.getAttribute("user_id"), title, content, address, x, y, (int)apply_limit);
+        String userId = (String)session.getAttribute("user_id");
+        postMapper.insertPost(userId, title, content, address, x, y, (int)apply_limit);
+        memberMapper.insertMemeber(userId, postMapper.selectProposal_idByTitleUser_id(userId, title));
         ModelAndView mav = new ModelAndView("redirect:/posts_Collection");
         return mav;
     }

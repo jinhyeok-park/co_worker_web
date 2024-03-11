@@ -44,4 +44,8 @@ public interface PostMapper {
 
     @Select("SELECT * FROM post")
     ArrayList<Post> selectAllPost();
+
+    @Select("SELECT proposal_id FROM post WHERE user_id = #{user_id} and title = #{title}")
+    Long selectProposal_idByTitleUser_id(@Param("user_id") String user_id,
+                                         @Param("title") String title);
 }

@@ -8,4 +8,5 @@ public class ChatDTO {
     long    room_id;
     String  sender;
     String  message;
+    String  room_title;
 }

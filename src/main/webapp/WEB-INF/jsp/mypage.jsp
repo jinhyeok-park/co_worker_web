@@ -18,23 +18,45 @@
             <button id="editUserInfo" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">정보 수정</button>
         </div>
 
-        <div class="user-contents bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <h2 class="block text-gray-700 text-lg font-bold mb-2">내가 작성한 글</h2>
-            <ul id="myPosts">
-                <c:forEach var="post" items="${mypostdata}">
-                    <li class="mb-4">
-                        <div class="post-item">
-                            <div class="flex justify-between items-center">
-                                <a href="/post/${post.proposal_id}" class="post-title text-blue-500 hover:text-blue-800">${post.title}</a>
-                                <form class="chatForm" action="/chatstart/${post.proposal_id}" method="GET" onsubmit="openChatWindow(event)">
-                                    <input type="submit" value="chatting" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                </form>
-                            </div>
-                        </div>
-                    </li>
-                </c:forEach>
-            </ul>
-        </div>
+       <div class="user-contents bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+           <h2 class="block text-gray-700 text-lg font-bold mb-2">내가 작성한 글</h2>
+           <ul id="myPosts">
+               <c:forEach var="post" items="${mypostdata}">
+                   <li class="mb-4">
+                       <div class="post-item">
+                           <div class="flex justify-between items-center">
+                               <a href="/post/${post.proposal_id}" class="post-title text-blue-500 hover:text-blue-800">${post.title}</a>
+                               <form class="chatForm" action="/chatstart/${post.proposal_id}" method="GET" onsubmit="openChatWindow(event)">
+                                   <input type="submit" value="chatting" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                               </form>
+                           </div>
+                           <div class="post-details">
+                               <ul class="applications">
+                                   <c:forEach var="appliers" items="${appliers}">
+                                       <c:if test="${post.apply_accept_count < post.apply_limit}">
+                                           <c:if test="${post.proposal_id eq appliers.proposal_id}">
+                                               <c:if test="${appliers.status eq '0'}">
+                                                   <li class="flex items-center justify-between">
+                                                       <span>${appliers.user_id}</span>
+                                                       <form action="/MyPageButtonController" method="post">
+                                                           <input type="submit" name="action" value="accept" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+                                                           <input type="submit" name="action" value="reject" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">
+                                                           <input type="hidden" name="proposal_id" value="${appliers.proposal_id}">
+                                                           <input type="hidden" name="user_id" value="${appliers.user_id}">
+                                                       </form>
+                                                   </li>
+                                               </c:if>
+                                           </c:if>
+                                       </c:if>
+                                   </c:forEach>
+                               </ul>
+                           </div>
+                       </div>
+                   </li>
+               </c:forEach>
+           </ul>
+       </div>
+
 
         <div class="application-history bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <h2 class="block text-gray-700 text-lg font-bold mb-2">내가 지원한 내역</h2>

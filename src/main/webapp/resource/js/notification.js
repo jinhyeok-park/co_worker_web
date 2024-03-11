@@ -10,14 +10,15 @@ window.addEventListener("DOMContentLoaded", function () {
         // 연결 성공 시 로그를 출력할 수 있습니다.
         stompClient.subscribe('/room/common', function (message) {
             var messageData = JSON.parse(message.body);
+
             if (roomIds === null) {
-                console.log("hit null ids");
                 return;
             }
-            console.log("hit normal ids");
-            console.log(roomIds);
+            console.log("hit roomIds"+ roomIds);
+
             if (roomIds.includes(messageData.room_id)) {
-                ShowNotification("새로운 메시지 도착");
+                var msg = messageData.sender + ": " + messageData.message;
+                ShowNotification(msg);
             }
         });
     });
