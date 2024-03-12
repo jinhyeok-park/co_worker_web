@@ -1,18 +1,33 @@
 var pro_id = JSON.parse(document.getElementById("pro_id").value);
 
-document.getElementById("postDelete").addEventListener('click', function () {
-    if (confirm("정말로 삭제하시겠습니까?")) {
-        $.ajax({
-            url: "/post/" + pro_id + "/delete",
-            type: 'DELETE',
-            success: function(res) {
-                if (res == true) {
-                    alert("삭제 되었습니다.");
-                    window.history.back();
-                } else {
-                    alert("삭제 실패");
-                }
+document.addEventListener('DOMContentLoaded', function () {
+    var deleteButton = document.getElementById("postDelete");
+    if (deleteButton) {
+        deleteButton.addEventListener('click', function () {
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                $.ajax({
+                    url: "/post/" + pro_id + "/delete",
+                    type: 'DELETE',
+                    success: function(res) {
+                        if (res == true) {
+                            alert("삭제 되었습니다.");
+                            window.history.back();
+                        } else {
+                            alert("삭제 실패");
+                        }
+                    }
+                });
             }
+        });
+    }
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    var editButton = document.getElementById("postEdit");
+    if (editButton) {
+        editButton.addEventListener('click', function () {
+             window.location.href = "/newpost?isEditMode=true&proposal_id=" + pro_id;
         });
     }
 });

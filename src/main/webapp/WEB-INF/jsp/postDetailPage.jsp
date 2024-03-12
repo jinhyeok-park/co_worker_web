@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>게시글</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/postDetail.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
@@ -17,6 +18,7 @@
     <div class="post-metadata">
 <c:if test="${not empty sessionScope.user_id && sessionScope.user_id == detailPost.user_id}">
     <input id="postDelete" type="button" value="Delete">
+    <input id="postEdit" type="button" value="Edit">
 </c:if>
 
             작성자: ${detailPost.user_id}

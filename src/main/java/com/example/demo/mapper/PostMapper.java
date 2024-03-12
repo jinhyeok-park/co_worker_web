@@ -50,4 +50,14 @@ public interface PostMapper {
                                          @Param("title") String title);
     @Delete("DELETE FROM post WHERE proposal_id = #{proposal_id}")
     void    deletePostByProposal_id(@Param("proposal_id") long proposal_id);
+
+    @Update("UPDATE post SET title = #{title}, content = #{content}, address = #{address}, axis_x = #{axis_x}, axis_y = #{axis_y}, apply_limit = #{apply_limit} WHERE proposal_id = #{proposal_id}")
+    void    updatePostByProposal_id(@Param("title") String title,
+                                    @Param("content") String content,
+                                    @Param("address") String address,
+                                    @Param("axis_x") double axis_x,
+                                    @Param("axis_y") double axis_y,
+                                    @Param("apply_limit") long apply_limit,
+                                    @Param("proposal_id") long proposal_id);
+
 }
