@@ -1,10 +1,7 @@
 package com.example.demo.mapper;
 
 import com.example.demo.model.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserMapper {
@@ -20,4 +17,13 @@ public interface UserMapper {
 
     @Select("SELECT * FROM user WHERE user_id = #{user_id}")
     User findUserByUsername(@Param("user_id") String user_id);
+    @Update("UPDATE user SET user_name = #{user_name}, pwd = #{password}, nickname = #{nickname}, email = #{email}, phone_num = #{phone_num}, role_id = #{role_id} WHERE user_id = #{origin_user_id}")
+    void updateUserById(@Param("user_name") String userName,
+                        @Param("password") String password,
+                        @Param("nickname") String nickname,
+                        @Param("email") String email,
+                        @Param("phone_num") String phoneNum,
+                        @Param("role_id") Integer roleId,
+                        @Param("origin_user_id") String originUserId);
+
 }

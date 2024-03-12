@@ -1,3 +1,6 @@
+document.getElementById("editUserInfo").addEventListener("click", function() {
+    window.location.href = "/signup?isEditMode=true";
+});
 
 
 document.addEventListener("DOMContentLoaded", function()

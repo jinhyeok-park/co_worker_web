@@ -1,6 +1,10 @@
 $(document).ready(function()
 {
     var isUserIdChecked = false;
+    if (isEditMode === true)
+    {
+        isUserIdChecked = true;
+    }
 
     $('#checkUserIdBtn').click(function(e)
     {
