@@ -12,7 +12,7 @@ public interface CommentMapper {
     @Insert("INSERT INTO comment(user_id, proposal_id, content)" +
     "VALUES(#{user_id}, #{proposal_id}, #{content})")
     void insertComment(@Param("user_id") String user_id,
-                       @Param("proposal_id")BigInteger proposal_id,
+                       @Param("proposal_id")long proposal_id,
                        @Param("content") String content );
 
     @Select("SELECT * FROM comment WHERE proposal_id = #{proposal_id}")

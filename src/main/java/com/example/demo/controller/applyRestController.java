@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.mapper.AlarmMapper;
 import com.example.demo.mapper.PostMapper;
 import com.example.demo.mapper.User_applicantsMapper;
 import com.example.demo.model.Post;
@@ -17,6 +18,9 @@ public class applyRestController {
 
     @Autowired
     private User_applicantsMapper userApplicantsMapper;
+
+    @Autowired
+    private AlarmMapper alarmMapper;
 
     @PostMapping("/applyRestController")
     String applyId(HttpSession session,
@@ -44,6 +48,8 @@ public class applyRestController {
         }
         userApplicantsMapper.insertUser_applicants(user_id, pro_id);
         postMapper.applyCountPlus(pro_id);
+        String message = user_id + " 님이 " + post.getTitle() + "에 지원 하셨습니다.";
+        alarmMapper.insertAlarm(post.getUser_id(), "3", message);
         return ("true");
     }
 

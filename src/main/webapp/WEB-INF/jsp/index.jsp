@@ -24,16 +24,20 @@
                         <form action="/mypage" method="GET">
                             <input type="submit" value="My Page" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
                         </form>
+                        <form action="/alarm" method="GET">
+                             <input type="submit" value="alarm" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
+                        </form>
                     </c:when>
                     <c:otherwise>
                         <form action="/login">
                             <input type="submit" value="Login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
                         </form>
+                          <form action="/signup">
+                                            <input type="submit" value="Sign Up" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
+                         </form>
                     </c:otherwise>
                 </c:choose>
-                <form action="/signup">
-                    <input type="submit" value="Sign Up" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
-                </form>
+
                 <form action="/posts_Collection">
                     <input type="submit" value="Posts" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
                 </form>
