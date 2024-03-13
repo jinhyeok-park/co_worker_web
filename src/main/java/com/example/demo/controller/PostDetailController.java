@@ -6,10 +6,14 @@ import com.example.demo.mapper.PostMapper;
 import com.example.demo.model.Comment;
 import com.example.demo.model.Post;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigInteger;
@@ -36,5 +40,16 @@ public class PostDetailController {
         mav.addObject("comments", comments);
         return mav;
     }
+
+    @PostMapping("/comment_edit")
+    @ResponseBody
+    public ResponseEntity<String> editCommentValue(@Param("updateContent") String updateContent,
+                                                    @Param("comment_id") long comment_id)
+    {
+        System.out.println("hit comment edit save");
+
+        return ResponseEntity.ok("true");
+    }
+
 
 }

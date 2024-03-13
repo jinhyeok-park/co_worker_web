@@ -22,7 +22,53 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+$(document).ready(function()
+{
+    $(".editbutton").click(function() {
+        var userId = $(this).data("user-id");
+        var comment_id = $(this).data("comment-id");
+        var originalContent = $("#content-" + userId).text();
 
+        // 기존 내용을 입력 필드로 변경
+        var inputField = '<input type="text" id="edit-content-' + userId + '" value="' + originalContent + '">';
+        $("#content-" + userId).replaceWith(inputField);
+
+        var saveButton = '<button id="save-' + userId + '">저장</button>';
+        var cancelButton = '<button id="cancel-' + userId + '">취소</button>';
+        $(this).after(cancelButton);
+        $(this).after(saveButton);
+        $(this).hide(); // 원래 수정 버튼 숨기기
+
+        $("#save-" + userId).click(function() {
+            var updateContent = $("#edit-content-" + userId).val();
+            $.ajax({
+                url: '/comment_edit',
+                type: 'POST',
+                data: {
+                    updateContent: updateContent,
+                    comment_id: comment_id
+                },
+                success: function(response) {
+                    if (response === "true") {
+                        var displayContent = '<span id="content-' + userId + '">' + updateContent + '</span>';
+                        $("#edit-content-" + userId).replaceWith(displayContent);
+                        $("#save-" + userId).remove();
+                        $("#cancel-" + userId).remove();
+                        $(".editbutton").show();
+                    }
+                }
+            });
+        });
+
+        $("#cancel-" + userId).click(function() {
+            var displayContent = '<span id="content-' + userId + '">' + originalContent + '</span>';
+            $("#edit-content-" + userId).replaceWith(displayContent);
+            $("#save-" + userId).remove();
+            $("#cancel-" + userId).remove();
+            $(".editbutton").show();
+        });
+    });
+})
 document.addEventListener('DOMContentLoaded', function () {
     var editButton = document.getElementById("postEdit");
     if (editButton) {

@@ -20,4 +20,8 @@ public interface CommentMapper {
 
     @Delete("DELETE FROM comment WHERE proposal_id = #{proposal_id}")
     void    deleteCommentByProposal_id(@Param("proposal_id") long proposal_id);
+
+    @Update("UPDATE comment SET content = #{content} WHERE comment_id = #{comment_id}")
+    void    updateCommentByCommentId(@Param("comment_id") long comment_id,
+                                     @Param("content") String content);
 }

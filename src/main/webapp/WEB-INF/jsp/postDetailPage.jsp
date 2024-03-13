@@ -34,9 +34,10 @@
 </div>
 <div class="container">
       <c:forEach var="comment" items="${comments}">
-         <div>
-            ${comment.user_id} : ${comment.content}
-           </div>
+         <div id="comment-${comment.user_id}">
+            <span id="content-${comment.user_id}">${comment.content}</span>
+            <button class="editbutton" type="button" data-user-id="${comment.user_id}" data-comment-id="${comment.comment_id}">수정</button>
+         </div>
       </c:forEach>
         <h2>댓글</h2>
         <form action="/post/${detailPost.proposal_id}/setComment" method="post">
