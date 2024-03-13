@@ -10,10 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigInteger;
@@ -43,13 +40,18 @@ public class PostDetailController {
 
     @PostMapping("/comment_edit")
     @ResponseBody
-    public ResponseEntity<String> editCommentValue(@Param("updateContent") String updateContent,
-                                                    @Param("comment_id") long comment_id)
+    public ResponseEntity<String> editCommentValue(@RequestParam("updateContent") String updateContent,
+                                                    @RequestParam("comment_id") long comment_id)
     {
-        System.out.println("hit comment edit save");
-
+        commentMapper.updateCommentByCommentId(comment_id, updateContent);
         return ResponseEntity.ok("true");
     }
 
-
+    @DeleteMapping("/post/comment_delete/{comment_id}")
+    @ResponseBody
+    public ResponseEntity<String> deleteComment(@PathVariable("comment_id") long comment_id)
+    {
+        commentMapper.deleteCommentByCommentId(comment_id);
+        return ResponseEntity.ok("true");
+    }
 }

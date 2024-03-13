@@ -21,6 +21,25 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+$(document).ready(function()
+{
+    $(".comment_delete").click(function()
+    {
+        var userId = $(this).data("user-id");
+        var comment_id = $(this).data("comment-id");
+        $.ajax({
+            url:"comment_delete/" + comment_id,
+            type: "DELETE",
+            success(response)
+            {
+                if (response === "true")
+                {
+                    $("#comment-" + userId).remove();
+                }
+            }
+        })
+    })
+})
 
 $(document).ready(function()
 {
