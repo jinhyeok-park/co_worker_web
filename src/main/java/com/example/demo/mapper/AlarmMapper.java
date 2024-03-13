@@ -12,6 +12,7 @@ public interface AlarmMapper {
                      @Param("activity") String activity,
                      @Param("message") String message);
 
+
     @Select("SELECT * FROM alarm WHERE user_id = #{user_id} and check_status = '1'")
     ArrayList<Alarm> selectAlarmByUserId(@Param("user_id") String user_id);
 

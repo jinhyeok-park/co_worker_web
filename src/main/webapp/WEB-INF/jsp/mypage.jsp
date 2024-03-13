@@ -68,7 +68,9 @@
                                 <a href="/post/${post.proposal_id}" class="text-blue-500 hover:text-blue-800">${post.title}</a>
                                 <span>status : "${status.status}"</span>
                                 <form class="chatForm" action="/chatstart/${post.proposal_id}" method="GET" onsubmit="openChatWindow(event)">
-                                    <input type="submit" value="chatting" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                            <c:if test="${status.status != '2'}">
+                                <input type="submit" value="chatting" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                            </c:if>
                                 </form>
                             </div>
                         </c:if>

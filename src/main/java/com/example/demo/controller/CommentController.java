@@ -18,7 +18,6 @@ import java.math.BigInteger;
 public class CommentController {
     @Autowired
     CommentMapper commentMapper;
-
     @Autowired
     PostMapper postMapping;
 
