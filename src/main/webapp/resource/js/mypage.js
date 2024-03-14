@@ -2,6 +2,30 @@ document.getElementById("editUserInfo").addEventListener("click", function() {
     window.location.href = "/signup?isEditMode=true";
 });
 
+$(document).ready(function()
+{
+    $(".exitButton").click(function ()
+    {
+        var user_id = $(this).data("user-id");
+        var proposal_id = $(this).data("proposal-id");
+
+        $.ajax({
+            url:"/exitButton",
+            type:'DELETE',
+            data:{
+                user_id : user_id,
+                proposal_id : proposal_id
+            },
+            success(response)
+            {
+                if (response)
+                {
+                    $("#postContainer" + proposal_id).remove();
+                }               // 게시글 안보이도록 없애기
+            }
+        })
+    })
+})
 
 document.addEventListener("DOMContentLoaded", function()
 {

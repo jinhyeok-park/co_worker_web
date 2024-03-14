@@ -19,4 +19,7 @@ public interface MemberMapper {
 
     @Select("SELECT user_id FROM member WHERE proposal_id = #{proposal_id}")
     ArrayList<String>   selectUser_idByProposal_id(@Param("proposal_id") long proposal_id);
+
+    @Delete("DELETE FROM member WHERE user_id = #{user_id}")
+    void deleteMemberByUser_id(@Param("user_id") String user_id);
 }

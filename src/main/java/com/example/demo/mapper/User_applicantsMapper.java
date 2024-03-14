@@ -36,4 +36,8 @@ public interface User_applicantsMapper {
 
     @Delete("DELETE FROM user_applicants WHERE proposal_id = #{proposal_id}")
     void    deleteUser_applicantsByProposal_id(@Param("proposal_id") long proposal_id);
+
+    @Delete("DELETE from user_applicants WHERE proposal_id = #{proposal_id} and user_id = #{user_id}")
+    void    deleteUser_applicantsByUserIdProposalId(@Param("user_id") String user_id,
+                                                    @Param("proposal_id") long proposal_id);
 }

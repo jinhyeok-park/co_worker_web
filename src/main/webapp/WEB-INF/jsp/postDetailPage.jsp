@@ -36,8 +36,10 @@
       <c:forEach var="comment" items="${comments}">
          <div id="comment-${comment.user_id}">
             <span id="content-${comment.user_id}">${comment.content}</span>
+            <c:if test="${comment.user_id == sessionScope.user_id}">
             <button class="editbutton" type="button" data-user-id="${comment.user_id}" data-comment-id="${comment.comment_id}">수정</button>
             <button type="button" class="comment_delete" data-comment-id="${comment.comment_id}" data-user-id="${comment.user_id}">삭제</button>
+            </c:if>
          </div>
       </c:forEach>
         <h2>댓글</h2>

@@ -64,9 +64,10 @@
                 <c:forEach var="post" items="${myapplydata}">
                     <c:forEach var="status" items="${myapplystatus}">
                         <c:if test="${post.proposal_id eq status.proposal_id}">
-                            <div class="mb-4">
-                                <a href="/post/${post.proposal_id}" class="text-blue-500 hover:text-blue-800">${post.title}</a>
+                            <div id="postContainer${post.proposal_id}"class="mb-4">
+                                <a href="/post/${post.proposal_id}" id="myAplly${post.proposal_id}" class="text-blue-500 hover:text-blue-800">${post.title}</a>
                                 <span>status : "${status.status}"</span>
+                                <button type="button" data-proposal-id="${post.proposal_id}" data-user-id="${sessionScope.user_id}"class="exitButton bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">exit</button>
                                 <form class="chatForm" action="/chatstart/${post.proposal_id}" method="GET" onsubmit="openChatWindow(event)">
                             <c:if test="${status.status != '2'}">
                                 <input type="submit" value="chatting" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
