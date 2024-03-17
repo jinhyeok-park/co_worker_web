@@ -4,6 +4,10 @@ document.head.appendChild(script);
 
 var map;
 var markers = []; // 마커를 저장할 배열
+var currentPage = 1;
+var itemPerPage = 15;
+var searchedDbData = []; // 검색 결과 데이터 저장용 (검색 결과가 있을 경우 여기에 저장)
+var itemsPerPage = 15;
 
 script.onload = () => {
     kakao.maps.load(() => {
@@ -65,7 +69,9 @@ function searchPlaces()
             console.log(response);
             if (response.length != 0)
             {
+                searchedDbData = response; // 전역 변수에 검색 결과 저장
                 update(response);
+                //페이지 네이션 수행?
             }
             else
             {
@@ -75,6 +81,10 @@ function searchPlaces()
     });
 }
 
+// 페이지당 항목 수
+
+
+
 function update(searchedDbData)
 {
     removeAllChildNodes(document.getElementById('placesList')); // 리스트 초기화
@@ -82,15 +92,31 @@ function update(searchedDbData)
 
     var bounds = new kakao.maps.LatLngBounds();
     var fragment = document.createDocumentFragment();
+//
+//    if (searchedDbData)
+//        var pageData = searchedDbData.slice((currentPage - 1) * itemPerPage, currentPage * itemPerPage);
+
     if (searchedDbData)
     {
 
-    searchedDbData.forEach(function(data) {
-        var markerPosition = new kakao.maps.LatLng(data.axis_x, data.axis_y);
-        var marker = addMarker(markerPosition, data.proposal_id - 1, data.title); // 마커 추가
-        markers.push(marker); // 마커 배열에 추가
+    searchedDbData.forEach(function(data, index) {
 
-        var itemEl = getListItem(data.proposal_id, data); // 리스트 항목 생성
+        var markerPosition = new kakao.maps.LatLng(data.axis_x, data.axis_y);
+        var marker = addMarker(markerPosition, index + 1, data.title); // 마커 추가
+        markers.push(marker); // 마커 배열에 추가
+        var infowindow;
+        var itemEl = getListItem(index + 1, data); // 리스트 항목 생성
+        itemEl.addEventListener('mouseover', function () {
+            infowindow = new kakao.maps.InfoWindow({zIndex:1});
+            var content =
+            infowindow.setContent(data.title);
+            infowindow.open(map, marker);
+        })
+        itemEl.addEventListener('mouseout', function()
+        {
+            infowindow.close();
+        })
+
         fragment.appendChild(itemEl); // DOM에 리스트 항목 추가
 
         bounds.extend(markerPosition); // 지도 범위 확장
@@ -99,6 +125,7 @@ function update(searchedDbData)
 
     document.getElementById('placesList').appendChild(fragment);
     map.setBounds(bounds); // 지도 범위 조정
+//    displayPagination(searchedDbData.length);
 }
 
 // 마커를 추가하는 함수
@@ -152,21 +179,46 @@ function removeMarker()
 }
 
 // 리스트 아이템을 생성하는 함수
-function getListItem(index, data)
-{
+function getListItem(index, data) {
     var el = document.createElement('li'),
-        itemStr = `<span class="markerbg marker_${index}"></span>
-                    <div class="info">
-                        <h5>${data.title}</h5>
-                        <span>${data.address}</span>`;
+        itemStr = `<span class="markerbg marker_${index} w-4 h-4 rounded-full bg-blue-500"></span>
+                    <div class="info p-5 rounded-xl shadow-lg bg-gray-50 w-[250px] overflow-auto">
+                        <h5 class="text-xl font-bold text-gray-800">${data.title}</h5>
+                        <span class="text-sm text-gray-700">${data.address}</span>`;
 
     if (data.content) {
-        itemStr += `<span class="tel">${data.content}</span>`;
+        itemStr += `<div class="mt-2 text-sm text-gray-600">${data.content}</div>`;
     }
 
     itemStr += '</div>';
     el.innerHTML = itemStr;
-    el.className = 'item';
+    el.className = 'item flex items-center gap-3 p-3';
 
     return el;
 }
+
+function displayPagination(totalItems) {
+    var paginationEl = document.getElementById('pagination');
+    removeAllChildNodes(paginationEl); // 페이지네이션 컨트롤 초기화
+
+    var totalPages = Math.ceil(totalItems / itemsPerPage); // 전체 페이지 수 계산
+
+    for (var i = 1; i <= totalPages; i++) {
+        var el = document.createElement('a');
+        el.href = "#";
+        el.textContent = i;
+        if (i === currentPage) {
+            el.classList.add('on');
+        } else {
+            el.addEventListener('click', (function(pageNumber) {
+                return function(e) {
+                    e.preventDefault();
+                    currentPage = pageNumber; // 클릭된 페이지 번호로 현재 페이지 업데이트
+                    update(searchedDbData); // 전역 변수 `searchedDbData`를 사용하여 페이지 업데이트 함수 호출
+                }
+            })(i));
+        }
+        paginationEl.appendChild(el);
+    }
+}
+

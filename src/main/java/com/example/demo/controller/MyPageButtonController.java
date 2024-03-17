@@ -38,7 +38,6 @@ public class MyPageButtonController {
         String message;
         if (action.equals("accept"))
         {
-            System.out.println("hit accppt");
             postMapper.applyAcceptCountPlus(proposal_id);
             userApplicantsMapper.acceptApplier(proposal_id, user_id);
             memberMapper.insertMemeber(user_id, proposal_id);

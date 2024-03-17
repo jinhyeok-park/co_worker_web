@@ -15,6 +15,11 @@
     <div class="container mx-auto">
         <div class="flex flex-wrap justify-between items-center py-4">
             <h1 class="text-2xl font-bold text-gray-900 mb-4">CO-WORKER HOME PAGE!</h1>
+        <form onsubmit="searchPlaces(); return false;" class="flex space-x-2 items-center">
+            <input type="text" placeholder="Search" id="keyword"
+                   class="shadow appearance-none border rounded w-[300px] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-transparent border-gray-300 hover:border-gray-500 focus:border-blue-500 transition duration-300 ease-in-out">
+            <button type="submit" id='search' class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">검색하기</button>
+        </form>
             <div class="flex space-x-2">
                 <c:choose>
                     <c:when test="${not empty sessionScope.user_id}">
@@ -44,14 +49,11 @@
             </div>
         </div>
         <div class="flex justify-center">
-            <div class="map_wrap" style="width: 90%; height: 500px;">
+            <div class="map_wrap" style="width: 120%; height: 500px;">
                 <div id="map" style="width:100%; height:100%; position:relative; overflow:hidden;" class="rounded-lg shadow"></div>
-                <div id="menu_wrap" class="bg_white">
+                <div id="menu_wrap" class="bg-white w-500 h-300">
                     <div class="option">
-                        <form onsubmit="searchPlaces(); return false;" class="flex space-x-2">
-                            <input type="text" placeholder='Search' id="keyword" size="15" class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                            <button type="submit" id='search' class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">검색하기</button>
-                        </form>
+
                     </div>
                     <hr>
                     <ul id="placesList" class="list-disc pl-5"></ul>
