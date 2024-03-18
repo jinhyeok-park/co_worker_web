@@ -16,7 +16,7 @@
         <div class="flex justify-center mb-6">
             <img src="${pageContext.request.contextPath}/resource/img/logo.png" alt="logo" class="h-12">
         </div>
-        <form action="${isEditMode ? '/mypage/user_edit.do' : '/mypage/user_edit.html'}" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <form action="${isEditMode ? '/mypage/user_edit.do' : '/signup/signup.do'}" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <h2 class="text-xl text-center font-bold mb-6">${isEditMode ? '회원 정보 수정' : '회원 가입'}</h2>
               <c:if test="${!isEditMode}">
                             <div class="mb-4">
