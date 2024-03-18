@@ -157,7 +157,7 @@ public class PostController {
 
     // post에 대한 지원
     @PostMapping("apply.do")
-    String applyId(HttpSession session,
+    public @ResponseBody String applyId(HttpSession session,
                    @RequestParam("proposal_id") String proposal_id)
     {
         long pro_id;

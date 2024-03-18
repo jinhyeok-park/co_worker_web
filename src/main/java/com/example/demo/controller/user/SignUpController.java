@@ -20,6 +20,11 @@ import com.example.demo.controller.user.model.User;
 public class SignUpController {
     private final UserMapper userMapper;
 
+    @GetMapping("signup.html")
+    public ModelAndView showSignUpPage()
+    {
+        return new ModelAndView("/login/sign_up");
+    }
     @PostMapping("signup.do")
     public ModelAndView registerUser(
                                     @RequestParam("user_id") String user_id,

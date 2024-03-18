@@ -37,7 +37,7 @@
                         <form action="/login/login.html">
                             <input type="submit" value="Login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
                         </form>
-                          <form action="/signup/signup.do">
+                          <form action="/signup/signup.html">
                                             <input type="submit" value="Sign Up" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
                          </form>
                     </c:otherwise>
