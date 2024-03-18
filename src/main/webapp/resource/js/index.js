@@ -71,7 +71,7 @@ function update(dbData)
     dbData.forEach(function(data, index) {
 
         var markerPosition = new kakao.maps.LatLng(data.axis_x, data.axis_y);
-        var marker = addMarker(markerPosition, index + 1, data.title); // 마커 추가
+        var marker = addMarker(markerPosition, index, data.title); // 마커 추가
         markers.push(marker); // 마커 배열에 추가
         var infowindow;
         var itemEl = getListItem(index + 1, data); // 리스트 항목 생성
