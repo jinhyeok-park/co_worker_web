@@ -7,7 +7,6 @@ var markers = []; // 마커를 저장할 배열
 var currentPage = 1;
 var itemPerPage = 15;
 var searchedDbData = []; // 검색 결과 데이터 저장용 (검색 결과가 있을 경우 여기에 저장)
-var itemsPerPage = 15;
 
 script.onload = () => {
     kakao.maps.load(() => {
@@ -16,28 +15,10 @@ script.onload = () => {
             center: new kakao.maps.LatLng(37.50802, 127.062835),
             level: 3
         };
-        map = new kakao.maps.Map(node, options); // 지도 생성
-
-//        var listEl = document.getElementById('placesList'),
-//            fragment = document.createDocumentFragment(),
-//            bounds = new kakao.maps.LatLngBounds();
-//
-//        removeAllChildNodes(listEl);
-//        removeMarker();
-//
-//        postData.forEach(function(ele) {
-//            var markerPosition = new kakao.maps.LatLng(ele.axis_x, ele.axis_y); // 마커 위치 설정
-//            var marker = addMarker(markerPosition, ele.proposal_id - 1, ele.title);
-//            var itemEl = getListItem(ele.proposal_id, ele); // 수정된 getListItem 함수를 사용
-//            bounds.extend(markerPosition);
-//            fragment.appendChild(itemEl);
-//
-//            markers.push(marker); // 마커 배열에 추가
-//        });
-//
-//        listEl.appendChild(fragment);
-//        map.setBounds(bounds);
-        update(postData);
+        map = new kakao.maps.Map(node, options);
+        searchedDbData = postData;
+        var pageData = postData.slice((currentPage - 1) * itemPerPage, currentPage * itemPerPage);
+        update(pageData);
         //searchPlaces();
         // 지도에 컨트롤 추가
         var mapTypeControl = new kakao.maps.MapTypeControl();
@@ -45,12 +26,10 @@ script.onload = () => {
 
         var zoomControl = new kakao.maps.ZoomControl();
         map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-
+        displayPagination(searchedDbData.length);
     });
 };
 
-
-/// 전역 위치
 function searchPlaces()
 {
     var keyword = document.getElementById('keyword').value;
@@ -66,13 +45,10 @@ function searchPlaces()
         data: { keyword : keyword },
         success: function(response)
         {
-            alert("hit response in js");
-            console.log(response);
             if (response.length != 0)
             {
                 searchedDbData = response; // 전역 변수에 검색 결과 저장
                 update(response);
-                //페이지 네이션 수행?
             }
             else
             {
@@ -82,25 +58,17 @@ function searchPlaces()
     });
 }
 
-// 페이지당 항목 수
-
-
-
-function update(searchedDbData)
+function update(dbData)
 {
     removeAllChildNodes(document.getElementById('placesList')); // 리스트 초기화
     removeMarker(); // 기존 마커 제거
 
     var bounds = new kakao.maps.LatLngBounds();
     var fragment = document.createDocumentFragment();
-//
-//    if (searchedDbData)
-//        var pageData = searchedDbData.slice((currentPage - 1) * itemPerPage, currentPage * itemPerPage);
-
-    if (searchedDbData)
+    if (dbData)
     {
 
-    searchedDbData.forEach(function(data, index) {
+    dbData.forEach(function(data, index) {
 
         var markerPosition = new kakao.maps.LatLng(data.axis_x, data.axis_y);
         var marker = addMarker(markerPosition, index + 1, data.title); // 마커 추가
@@ -117,6 +85,11 @@ function update(searchedDbData)
         {
             infowindow.close();
         })
+        itemEl.addEventListener('click', function()
+        {
+            var url = "/post/" + data.proposal_id + "/post_detail_form.html";
+            window.location.href = url;
+        })
 
         fragment.appendChild(itemEl); // DOM에 리스트 항목 추가
 
@@ -126,7 +99,7 @@ function update(searchedDbData)
 
     document.getElementById('placesList').appendChild(fragment);
     map.setBounds(bounds); // 지도 범위 조정
-//    displayPagination(searchedDbData.length);
+    displayPagination(searchedDbData.length);
 }
 
 // 마커를 추가하는 함수
@@ -202,7 +175,7 @@ function displayPagination(totalItems) {
     var paginationEl = document.getElementById('pagination');
     removeAllChildNodes(paginationEl); // 페이지네이션 컨트롤 초기화
 
-    var totalPages = Math.ceil(totalItems / itemsPerPage); // 전체 페이지 수 계산
+    var totalPages = Math.ceil(totalItems / itemPerPage); // 전체 페이지 수 계산
 
     for (var i = 1; i <= totalPages; i++) {
         var el = document.createElement('a');
@@ -215,7 +188,8 @@ function displayPagination(totalItems) {
                 return function(e) {
                     e.preventDefault();
                     currentPage = pageNumber; // 클릭된 페이지 번호로 현재 페이지 업데이트
-                    update(searchedDbData); // 전역 변수 `searchedDbData`를 사용하여 페이지 업데이트 함수 호출
+                    var pageData = searchedDbData.slice((currentPage - 1) * itemPerPage, currentPage * itemPerPage);
+                    update(pageData); // 전역 변수 `searchedDbData`를 사용하여 페이지 업데이트 함수 호출
                 }
             })(i));
         }

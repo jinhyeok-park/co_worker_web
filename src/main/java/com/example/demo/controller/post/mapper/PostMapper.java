@@ -30,7 +30,7 @@ public interface PostMapper {
     @Select("SELECT * FROM post WHERE proposal_id = #{proposal_id}")
     Post findPostByProposal_Id(@Param("proposal_id") long proposal_id);
 
-    @Select("SELECT * FROM post WHERE title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%')")
+    @Select("SELECT * FROM post WHERE (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%')) AND axis_x != 0 AND axis_y != 0")
     ArrayList<Post> findByTitleOrContentContaining(String keyword);
 
     @Select("SELECT * FROM post WHERE axis_x != 0 AND axis_y != 0")
