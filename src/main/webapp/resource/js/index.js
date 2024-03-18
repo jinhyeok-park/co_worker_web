@@ -60,12 +60,13 @@ function searchPlaces()
         return false;
     }
     $.ajax({
-        url: '/searchContent',
+        url: '/post/search_content.do',
         type: 'GET',
         //dataType: 'json',
         data: { keyword : keyword },
         success: function(response)
         {
+            alert("hit response in js");
             console.log(response);
             if (response.length != 0)
             {

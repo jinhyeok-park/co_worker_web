@@ -23,27 +23,27 @@
             <div class="flex space-x-2">
                 <c:choose>
                     <c:when test="${not empty sessionScope.user_id}">
-                        <form action="/logout" method="post">
+                        <form action="/login/logout.do" method="post">
                             <input type="submit" value="Logout" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
                         </form>
-                        <form action="/mypage" method="GET">
+                        <form action="/mypage/my_page.html" method="GET">
                             <input type="submit" value="My Page" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
                         </form>
-                        <form action="/alarm" method="GET">
+                        <form action="/alarm/alarm_list.html" method="GET">
                              <input type="submit" value="alarm" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
                         </form>
                     </c:when>
                     <c:otherwise>
-                        <form action="/login">
+                        <form action="/login/login.html">
                             <input type="submit" value="Login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
                         </form>
-                          <form action="/signup">
+                          <form action="/signup/signup.do">
                                             <input type="submit" value="Sign Up" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
                          </form>
                     </c:otherwise>
                 </c:choose>
 
-                <form action="/posts_Collection">
+                <form action="/post/post_list.html">
                     <input type="submit" value="Posts" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
                 </form>
             </div>
@@ -69,6 +69,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
 <script src="${pageContext.request.contextPath}/resource/js/index.js"></script>
-<script src="${pageContext.request.contextPath}/resource/js/notification.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/notification/notification.js"></script>
 </body>
 </html>
