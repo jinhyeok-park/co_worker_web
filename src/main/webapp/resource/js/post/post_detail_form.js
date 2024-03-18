@@ -44,22 +44,21 @@ $(document).ready(function()
 $(document).ready(function()
 {
     $(".editbutton").click(function() {
-        var userId = $(this).data("user-id");
         var comment_id = $(this).data("comment-id");
-        var originalContent = $("#content-" + userId).text();
+        var originalContent = $("#content-" + comment_id).text();
 
         // 기존 내용을 입력 필드로 변경
-        var inputField = '<input type="text" id="edit-content-' + userId + '" value="' + originalContent + '">';
-        $("#content-" + userId).replaceWith(inputField);
+        var inputField = '<input type="text" id="edit-content-' + comment_id  + '" value="' + originalContent + '">';
+        $("#content-" + comment_id ).replaceWith(inputField);
 
-        var saveButton = '<button id="save-' + userId + '">저장</button>';
-        var cancelButton = '<button id="cancel-' + userId + '">취소</button>';
+        var saveButton = '<button id="save-' + comment_id  + '">저장</button>';
+        var cancelButton = '<button id="cancel-' + comment_id  + '">취소</button>';
         $(this).after(cancelButton);
         $(this).after(saveButton);
         $(this).hide(); // 원래 수정 버튼 숨기기
 
-        $("#save-" + userId).click(function() {
-            var updateContent = $("#edit-content-" + userId).val();
+        $("#save-" + comment_id).click(function() {
+            var updateContent = $("#edit-content-" + comment_id ).val();
             $.ajax({
                 url: '/comment/edit_comment.do',
                 type: 'POST',
@@ -69,22 +68,22 @@ $(document).ready(function()
                 },
                 success: function(response) {
                     if (response === "true") {
-                        var displayContent = '<span id="content-' + userId + '">' + updateContent + '</span>';
-                        $("#edit-content-" + userId).replaceWith(displayContent);
-                        $("#save-" + userId).remove();
-                        $("#cancel-" + userId).remove();
+                        var displayContent = '<span id="content-' + comment_id  + '">' + updateContent + '</span>';
+                        $("#edit-content-" + comment_id ).replaceWith(displayContent);
+                        $("#save-" + comment_id ).remove();
+                        $("#cancel-" + comment_id ).remove();
                         $(".editbutton").show();
                     }
                 }
             });
         });
 
-        $("#cancel-" + userId).click(function() {
-            var displayContent = '<span id="content-' + userId + '">' + originalContent + '</span>';
-            $("#edit-content-" + userId).replaceWith(displayContent);
-            $("#save-" + userId).remove();
-            $("#cancel-" + userId).remove();
-            $(".editbutton").show();
+        $("#cancel-" + comment_id).click(function() {
+            var displayContent = '<span id="content-' + comment_id  + '">' + originalContent + '</span>';
+            $("#edit-content-" + comment_id ).replaceWith(displayContent);
+            $("#save-" + comment_id ).remove();
+            $("#cancel-" + comment_id ).remove();
+            $('button.editbutton[data-comment-id="' + comment_id + '"]').show();
         });
     });
 })

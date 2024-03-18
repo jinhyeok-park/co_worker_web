@@ -51,6 +51,22 @@ function openChatWindow(e)
     window.open(action, 'ChatWindow', windowFeatures);
 }
 
+$(document).ready(function() {
+    // 각 TeamPage 버튼을 찾아서 클릭 이벤트를 추가합니다.
+    $('[class^="teamPageButton-"]').click(function() {
+        // 클래스 이름에서 proposal_id를 가져옵니다.
+        var proposalId = $(this).attr('class').split('teamPageButton-')[1].split(' ')[0];
+        alert(proposalId);
+        // 새로운 URL을 생성합니다.
+        var newUrl = "/teampage/" + proposalId + "/teampage.html";
+        alert(newUrl);
+        // 새로운 페이지를 새 탭에서 엽니다.
+        window.open(newUrl, '_blank');
+    });
+});
+
+
+
 $(document).ready(function ()
 {
     $(".chatRoomStartQuestion").click(function ()
