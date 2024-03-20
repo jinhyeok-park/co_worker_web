@@ -80,6 +80,9 @@
                                 <input type="submit" value="chatting" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                             </c:if>
                                 </form>
+                             <c:if test="${status.status == '1'}">
+                             <input type="button" value="TeamPage" class="teamPageButton-${post.proposal_id} bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                             </c:if>
                             </div>
                         </c:if>
                     </c:forEach>
