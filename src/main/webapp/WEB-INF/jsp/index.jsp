@@ -206,13 +206,13 @@
                 <div class="flex space-x-2 text-sm font-semibold" style="color: #0f172a; font-weight: 600;">
                     <c:choose>
                         <c:when test="${not empty sessionScope.user_id}">
-                            <a href="/login /logout.do">Logout&nbsp;</a> |
+                            <a href="#" onclick="logout()">Logout&nbsp;</a> |
                             <a href="/mypage/my_page.html">My Page&nbsp;</a> |
                             <a href="/alarm/alarm_list.html">Alarm</a>
                         </c:when>
                         <c:otherwise>
                             <a href="/login/login.html">Login&nbsp;</a> |
-                            <a href="/login/signup.html">Sign Up&nbsp;</a>
+                            <a href="/signup/signup.html">Sign Up&nbsp;</a>
                         </c:otherwise>
                     </c:choose>
                 </div>

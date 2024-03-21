@@ -31,6 +31,14 @@ script.onload = () => {
 
 };
 
+function logout() {
+    var f = document.createElement('form');
+    f.setAttribute('method', 'post');
+    f.setAttribute('action', '/login/logout.do');
+    document.body.appendChild(f);
+    f.submit();
+}
+
 function searchToggle(obj, evt){
     var container = $(obj).closest('.search-wrapper');
     if(!container.hasClass('active')){
