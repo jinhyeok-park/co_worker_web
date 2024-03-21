@@ -8,18 +8,174 @@
     <title>Hello Page</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/font.css">
+
+    <%-- font --%>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kodchasan:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=63e52530f05ff3afd5fe6e56e3f067a4&libraries=services,clusterer,drawing"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
+<style>
+    .logo-img {
+        max-width: 40px;
+        float: right;
+        padding-top: 5px;
+    }
+
+    .search-wrapper {
+        top:50%;
+        left:50%;
+    }
+    .search-wrapper.active {}
+
+    .search-wrapper .input-holder {
+        height: 70px;
+        width: 70px;
+        overflow: hidden;
+        background: rgba(255,255,255,0);
+        border-radius:6px;
+        position: relative;
+        transition: all 0.3s ease-in-out;
+    }
+    .search-wrapper.active .input-holder {
+        width:450px;
+        border-radius: 50px;
+        background: rgba(0,0,0,0.5);
+        transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+    }
+    .search-wrapper .input-holder .search-input {
+        width:100%;
+        height: 50px;
+        padding:0px 70px 0 20px;
+        opacity: 0;
+        position: absolute;
+        top:0px;
+        left:0px;
+        background: transparent;
+        box-sizing: border-box;
+        border:none;
+        outline:none;
+        font-family:"Open Sans", Arial, Verdana;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 20px;
+        color:#FFF;
+        transform: translate(0, 60px);
+        transition: all .3s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+        transition-delay: 0.3s;
+    }
+    .search-wrapper.active .input-holder .search-input {
+        opacity: 1;
+        transform: translate(0, 10px);
+    }
+    .search-wrapper .input-holder .search-icon {
+        width:70px;
+        height:70px;
+        border:none;
+        border-radius:6px;
+        background: #FFF;
+        padding:0px;
+        outline:none;
+        position: relative;
+        z-index: 2;
+        float:right;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+    .search-wrapper.active .input-holder .search-icon {
+        width: 50px;
+        height:50px;
+        margin: 10px;
+        border-radius: 30px;
+    }
+    .search-wrapper .input-holder .search-icon span {
+        width:22px;
+        height:22px;
+        display: inline-block;
+        vertical-align: middle;
+        position:relative;
+        transform: rotate(45deg);
+        transition: all .4s cubic-bezier(0.650, -0.600, 0.240, 1.650);
+    }
+    .search-wrapper.active .input-holder .search-icon span {
+        transform: rotate(-45deg);
+    }
+    .search-wrapper .input-holder .search-icon span::before, .search-wrapper .input-holder .search-icon span::after {
+        position: absolute;
+        content:'';
+    }
+    .search-wrapper .input-holder .search-icon span::before {
+        width: 4px;
+        height: 11px;
+        left: 9px;
+        top: 18px;
+        border-radius: 2px;
+        background: #FE5F55;
+    }
+    .search-wrapper .input-holder .search-icon span::after {
+        width: 14px;
+        height: 14px;
+        left: 0px;
+        top: 0px;
+        border-radius: 16px;
+        border: 4px solid #fe5f55;
+    }
+    .search-wrapper .close {
+        position: absolute;
+        z-index: 1;
+        top:24px;
+        right:20px;
+        width:25px;
+        height:25px;
+        cursor: pointer;
+        transform: rotate(-180deg);
+        transition: all .3s cubic-bezier(0.285, -0.450, 0.935, 0.110);
+        transition-delay: 0.2s;
+    }
+    .search-wrapper.active .close {
+        right:-50px;
+        transform: rotate(45deg);
+        transition: all .6s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+        transition-delay: 0.5s;
+    }
+    .search-wrapper .close::before, .search-wrapper .close::after {
+        position:absolute;
+        content:'';
+        background: #FE5F55;
+        border-radius: 2px;
+    }
+    .search-wrapper .close::before {
+        width: 5px;
+        height: 25px;
+        left: 10px;
+        top: 0px;
+    }
+    .search-wrapper .close::after {
+        width: 25px;
+        height: 5px;
+        left: 0px;
+        top: 10px;
+    }
+
+</style>
 <body class="bg-gray-100">
     <div class="container mx-auto">
         <div class="flex flex-wrap justify-between items-center py-4">
-            <h1 class="text-2xl font-bold text-gray-900 mb-4">CO-WORKER HOME PAGE!</h1>
-        <form onsubmit="searchPlaces(); return false;" class="flex space-x-2 items-center">
-            <input type="text" placeholder="Search" id="keyword"
-                   class="shadow appearance-none border rounded w-[300px] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-transparent border-gray-300 hover:border-gray-500 focus:border-blue-500 transition duration-300 ease-in-out">
-            <button type="submit" id='search' class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">검색하기</button>
-        </form>
+            <div class="kodchasan-bold">CO-WORKER<img class="logo-img" src="${pageContext.request.contextPath}/resource/img/logo.png"/></div>
+
+            <form onsubmit="searchPlaces(); return false;" class="flex space-x-2 items-center">
+                <div class="search-wrapper">
+                    <div class="input-holder">
+                        <input type="text" id='keyword' class="search-input" placeholder="Type to search" />
+                        <button type="submit" id='search' class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
+                    </div>
+                    <span class="close" onclick="searchToggle(this, event);"></span>
+                </div>
+            </form>
+
             <div class="flex space-x-2">
                 <c:choose>
                     <c:when test="${not empty sessionScope.user_id}">
