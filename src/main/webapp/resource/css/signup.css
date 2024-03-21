@@ -56,3 +56,13 @@ input[type=submit] {
 input[type=submit]:hover {
     background-color: #0056b3;
 }
+
+  #checkUserIdBtn {
+    border-color: rgb(14, 165, 233); /* 테두리 색상 설정 */
+    color: rgb(14, 165, 233); /* 글자 색상 설정 */
+  }
+
+  #checkUserIdBtn:hover {
+    background-color: rgb(13, 148, 209); /* 호버 시 배경색 - 조금 더 진한 sky 색상 */
+    color: white; /* 호버 시 글자 색상 */
+  }
