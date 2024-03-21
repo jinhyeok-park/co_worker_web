@@ -122,8 +122,13 @@ public class TeamPageController {
         return ResponseEntity.ok(teamPost);
     }
 
-    //@PostMapping("")
-
+    @DeleteMapping("delete_teampage.do")
+    public @ResponseBody ResponseEntity deleteTeamPost(@RequestParam("proposal_id") long proposal_id,
+                                                       @RequestParam("teampost_id") long teampost_id)
+    {
+        teamPostMapper.deleteTeamPost(proposal_id,teampost_id);
+        return ResponseEntity.ok(true);
+    }
     //해당 컨트롤러를 통해서 실시간을 편집되는 내용이 전송되어진다.
     //js 페이지를 보자 ,
     @SendTo("/room/team/{proposal_id}/{memberPost_id}")

@@ -33,6 +33,7 @@
         <input id="titleInput" type="text" placeholder="Enter document title here..." class="p-2 m-2 border border-gray-300 rounded" style="margin-top: 20px;">
         <textarea id="markdownInput" class="flex-1 p-4 m-2 bg-white border border-gray-300 rounded shadow resize-none" placeholder="Write your markdown content here..."></textarea>
         <button id="saveButton" class="py-2 px-4 bg-blue-500 text-white rounded m-2 self-end">save</button>
+        <button id="deleteButton" class="py-2 px-4 bg-blue-500 text-white rounded m-2 self-end">delete</button>
             <button id="togglePreview" class="py-2 px-4 bg-blue-500 text-white rounded m-2 self-end">전체보기</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>

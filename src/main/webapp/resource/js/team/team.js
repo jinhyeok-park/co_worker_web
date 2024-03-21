@@ -83,10 +83,7 @@ $(document).ready(function() {
 //    var autoSaveTimer = setTimeout(saveContentToServer, 300000); // 300000ms = 5분
 //
 //    // 페이지를 떠날 때 내용 저장
-//    $(window).on('beforeunload', function() {
-//        saveContentToServer();
-//        // 사용자가 페이지를 떠나는 것을 막지 않음
-//    });
+//
 //
 //    // 내용을 서버로 저장하는 함수
 //
@@ -185,11 +182,47 @@ $(document).ready(function() {
             }
         });
     });
+ var autoSaveTimer = setInterval(saveContentToServer, 3000); // 1000ms = 1초
 $("#saveButton").on('click', saveContentToServer);
+$("#deleteButton").on('click', deleteContentInServer);
 });
+
+function deleteContentInServer()
+{
+    var proposalId = window.currentProposalId;
+    var teamPostId = window.currentTeamPostId;
+    var confirmDelete;
+
+    confirmDelete = confirm("정말로 삭제하시겠습니까?");
+
+    if (confirmDelete)
+    {
+        $.ajax({
+                url: "/teampage/delete_teampage.do",
+                type:'DELETE',
+                data: {
+                    proposal_id: proposalId,
+                    teampost_id: teamPostId
+                },
+                success: function(response)
+                {
+                    var entity = JSON.parse(response);
+                    if (entity === true)
+                    {
+                        alert("delete done");
+                        window.location.reload();
+                    }
+                }
+        })
+    }
+
+
+
+}
 
 
 function saveContentToServer() {
+
         var title = $('#titleInput').val();
         var contents = $('#markdownInput').val();
         if (!window.currentProposalId)
