@@ -19,9 +19,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <style>
+    .header-div {
+        border-bottom: 1px solid;
+        border-bottom-color: #969696;
+        margin-bottom: 10px;
+    }
+
+    .logo-title {
+        color: #0ea5e9;
+    }
+
     .logo-img {
         max-width: 40px;
-        float: right;
+        float: left;
         padding-top: 5px;
     }
 
@@ -43,7 +53,7 @@
     .search-wrapper.active .input-holder {
         width:450px;
         border-radius: 50px;
-        background: rgba(0,0,0,0.5);
+        background: #D7F1FA;
         transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
     }
     .search-wrapper .input-holder .search-input {
@@ -55,14 +65,14 @@
         top:0px;
         left:0px;
         background: transparent;
-        box-sizing: border-box;
+        box-sizing: unset !important;
         border:none;
         outline:none;
         font-family:"Open Sans", Arial, Verdana;
         font-size: 16px;
         font-weight: 400;
         line-height: 20px;
-        color:#FFF;
+        color:#282828;
         transform: translate(0, 60px);
         transition: all .3s cubic-bezier(0.000, 0.105, 0.035, 1.570);
         transition-delay: 0.3s;
@@ -76,7 +86,7 @@
         height:70px;
         border:none;
         border-radius:6px;
-        background: #FFF;
+        /*background: #FFF;*/
         padding:0px;
         outline:none;
         position: relative;
@@ -113,15 +123,15 @@
         left: 9px;
         top: 18px;
         border-radius: 2px;
-        background: #FE5F55;
+        background: #0ea5e9;
     }
     .search-wrapper .input-holder .search-icon span::after {
-        width: 14px;
-        height: 14px;
+        width: 20px;
+        height: 20px;
         left: 0px;
         top: 0px;
         border-radius: 16px;
-        border: 4px solid #fe5f55;
+        border: 4px solid #0ea5e9;
     }
     .search-wrapper .close {
         position: absolute;
@@ -144,7 +154,7 @@
     .search-wrapper .close::before, .search-wrapper .close::after {
         position:absolute;
         content:'';
-        background: #FE5F55;
+        background: rgb(14 165 233);
         border-radius: 2px;
     }
     .search-wrapper .close::before {
@@ -160,60 +170,73 @@
         top: 10px;
     }
 
+    .list-img {
+        max-width: 20px;
+        float: right;
+        padding-top: 0px;
+        margin-left: 6px;
+    }
+
+    .post-list {
+        text-align: right;
+        color: #0ea5e9;
+        font-weight: 600;
+        margin-top: 20px;
+    }
 </style>
 <body class="bg-gray-100">
     <div class="container mx-auto">
-        <div class="flex flex-wrap justify-between items-center py-4">
-            <div class="kodchasan-bold">CO-WORKER<img class="logo-img" src="${pageContext.request.contextPath}/resource/img/logo.png"/></div>
-
-            <form onsubmit="searchPlaces(); return false;" class="flex space-x-2 items-center">
-                <div class="search-wrapper">
-                    <div class="input-holder">
-                        <input type="text" id='keyword' class="search-input" placeholder="Type to search" />
-                        <button type="submit" id='search' class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
-                    </div>
-                    <span class="close" onclick="searchToggle(this, event);"></span>
+        <div class="header-div">
+            <div class="flex flex-wrap justify-between items-center py-4">
+                <div class="kodchasan-bold logo-title">
+                    <img class="logo-img" src="${pageContext.request.contextPath}/resource/img/logo.png"/>
+                    CO-WORKER
                 </div>
-            </form>
 
-            <div class="flex space-x-2">
-                <c:choose>
-                    <c:when test="${not empty sessionScope.user_id}">
-                        <form action="/login/logout.do" method="post">
-                            <input type="submit" value="Logout" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
-                        </form>
-                        <form action="/mypage/my_page.html" method="GET">
-                            <input type="submit" value="My Page" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
-                        </form>
-                        <form action="/alarm/alarm_list.html" method="GET">
-                             <input type="submit" value="alarm" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
-                        </form>
-                    </c:when>
-                    <c:otherwise>
-                        <form action="/login/login.html">
-                            <input type="submit" value="Login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
-                        </form>
-                          <form action="/signup/signup.html">
-                                            <input type="submit" value="Sign Up" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
-                         </form>
-                    </c:otherwise>
-                </c:choose>
-
-                <form action="/post/post_list.html">
-                    <input type="submit" value="Posts" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
+                <form onsubmit="searchPlaces(); return false;" class="">
+                    <div class="search-wrapper">
+                        <div class="input-holder">
+                            <input type="text" id='keyword' class="search-input" placeholder="Type to search" />
+                            <button type="submit" id='search' class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
+                        </div>
+<%--                        <span class="close" onclick="searchToggle(this, event);"></span>--%>
+                    </div>
                 </form>
+
+                <div class="flex space-x-2 text-sm font-semibold" style="color: #0f172a; font-weight: 600;">
+                    <c:choose>
+                        <c:when test="${not empty sessionScope.user_id}">
+                            <a href="/login /logout.do">Logout&nbsp;</a> |
+                            <a href="/mypage/my_page.html">My Page&nbsp;</a> |
+                            <a href="/alarm/alarm_list.html">Alarm</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="/login/login.html">Login&nbsp;</a> |
+                            <a href="/login/signup.html">Sign Up&nbsp;</a>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
             </div>
         </div>
-        <div class="flex justify-center">
-            <div class="map_wrap" style="width: 120%; height: 500px;">
-                <div id="map" style="width:100%; height:100%; position:relative; overflow:hidden;" class="rounded-lg shadow"></div>
-                <div id="menu_wrap" class="bg-white w-500 h-300">
-                    <div class="option">
 
+        <div class="text-sm font-semibold post-list">
+            <span>
+                <a id="post-list" href="/post/post_list.html" >All Community <img class="list-img" src="${pageContext.request.contextPath}/resource/img/list.png"/></a>
+            </span>
+        </div>
+
+        <div>
+            <div class="flex justify-center">
+                <div class="map_wrap" style="width: 120%; height: 500px;">
+                    <div id="map" style="width:100%; height:100%; position:relative; overflow:hidden;" class="rounded-lg shadow"></div>
+                    <div id="menu_wrap" class="bg-white w-500 h-300">
+                        <div class="option">
+
+                        </div>
+                        <hr>
+                        <ul id="placesList" class="list-disc pl-5"></ul>
+                        <div id="pagination" class="py-2"></div>
                     </div>
-                    <hr>
-                    <ul id="placesList" class="list-disc pl-5"></ul>
-                    <div id="pagination" class="py-2"></div>
                 </div>
             </div>
         </div>
