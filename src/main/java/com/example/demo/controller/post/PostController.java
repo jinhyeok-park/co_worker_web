@@ -10,6 +10,7 @@ import com.example.demo.controller.post.mapper.UserApplicantsMapper;
 import com.example.demo.controller.post.model.Comment;
 import com.example.demo.controller.post.model.Post;
 
+import com.example.demo.controller.team.mapper.TeamPostMapper;
 import jakarta.servlet.http.HttpSession;
 
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,7 @@ public class PostController {
     private final CommentMapper commentMapper;
     private final UserApplicantsMapper userApplicantsMapper;
     private final AlarmMapper alarmMapper;
+    private final TeamPostMapper teamPostMapper;
 
     @GetMapping("post_list.html")
     public ModelAndView showPosts(HttpSession session)
@@ -63,7 +65,7 @@ public class PostController {
         {
             mav.addObject("title", post.getTitle());
             mav.addObject("content" ,post.getContent());
-            mav.addObject("apply-limit", post.getApply_limit());
+            mav.addObject("apply_limit", post.getApply_limit());
             mav.addObject("proposal_id", proposal_id);
         }
         // 추가 로직, 예를 들어, isEditMode가 true일 경우 수정할 게시글의 데이터를 모델에 추가
@@ -77,12 +79,24 @@ public class PostController {
                                  @RequestParam("axis_x") String axis_x,
                                  @RequestParam("axis_y") String axis_y,
                                  @RequestParam("apply_limit") long apply_limit,
-                                 @RequestParam("proposal_id") long proposal_id)
+                                 @RequestParam("proposal_id") long proposal_id,
+                                 @RequestParam("create_room") boolean create_room)
     {
         double x = !axis_x.isEmpty() ? Double.parseDouble(axis_x) : 0.0;
         double y = !axis_y.isEmpty() ? Double.parseDouble(axis_y) : 0.0;
 
         postMapper.updatePostByProposal_id(title,content,address,x,y,apply_limit, proposal_id);
+        Post post = postMapper.findPostByProposal_Id(proposal_id);
+        if (create_room)
+        {
+            memberMapper.insertMemeber(post.getUser_id(), proposal_id);
+            //chatRoomMapper.insertChat_room(title, userId);
+            postMapper.updateChatRoomStatusTrue(proposal_id);
+        }
+        else
+        {
+            postMapper.updateChatRoomStatusFalse(proposal_id);
+        }
 
         return new ModelAndView("redirect:/post/post_list.html");
     }
@@ -132,6 +146,7 @@ public class PostController {
         commentMapper.deleteCommentByProposal_id(proposal_id);
         userApplicantsMapper.deleteUser_applicantsByProposal_id(proposal_id);
         postMapper.deletePostByProposal_id(proposal_id);
+        teamPostMapper.deleteAllTeamPostByProposal_id(proposal_id);
 
         return (ResponseEntity.ok(true));
     }

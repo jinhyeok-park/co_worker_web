@@ -28,4 +28,7 @@ public interface TeamPostMapper {
     @Delete("DELETE FROM team_post WHERE proposal_id = #{proposal_id} AND teampost_id = #{teampost_id}")
     void    deleteTeamPost(@Param("proposal_id") long proposal_id,
                            @Param("teampost_id") long teamPost_id);
+
+    @Delete("DELETE FROM team_post WHERE proposal_id = #{proposal_id}")
+    void    deleteAllTeamPostByProposal_id(@Param("proposal_id") long proposal_id);
 }
