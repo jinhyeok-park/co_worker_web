@@ -9,11 +9,14 @@ import com.example.demo.controller.user.model.User;
 import com.example.demo.controller.post.model.UserApplicants;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -87,5 +90,22 @@ public class MyPageController {
         session.invalidate();
         userMapper.updateUserById(username, password, nickname, email, phoneNum, 0, oldUserId);
         return new ModelAndView("redirect:/");
+    }
+
+    @GetMapping("get_member.do")
+    public @ResponseBody ResponseEntity getMembers(@RequestParam("proposal_id") long proposal_id)
+    {
+        //List<String> ret = memberMapper.select(proposal_id); // 가정: select 메서드가 적절한 로직을 수행한다고 가정
+        ArrayList<String> members = memberMapper.selectUser_idByProposal_id(proposal_id);
+        return ResponseEntity.ok(members);
+    }
+
+    @PostMapping("userkick.do")
+    public @ResponseBody ResponseEntity userKick(@RequestParam("user_id") String user_id,
+                                                 @RequestParam("proposal_id") long proposal_id)
+    {
+        //mapper 제작 해야함
+        memberMapper.deleteMemberByProposal_idUser_id(user_id, proposal_id);
+        return ResponseEntity.ok("true");
     }
 }

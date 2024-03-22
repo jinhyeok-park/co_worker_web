@@ -17,7 +17,6 @@
             <p><strong>Username:</strong> <span id="username">${userData.user_name}</span></p>
             <button id="editUserInfo" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">정보 수정</button>
         </div>
-
        <div class="user-contents bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
            <h2 class="block text-gray-700 text-lg font-bold mb-2">내가 작성한 글</h2>
            <ul id="myPosts">
@@ -42,8 +41,8 @@
                                <c:if test="${post.chatroom_status == '0'}">
                                 <input type="submit" value="Create Chat" data-proposal-id="${post.proposal_id}" class="chatRoomStartQuestion bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                                </c:if>
-                               <button id="showMembers">맴버보기</button>
-                               <ul id="memberList"></ul>
+                                <button class="showMembersBtn" data-proposal-id="${post.proposal_id}">맴버보기</button>
+                                <ul class="memberList-${post.proposal_id}" data-proposal-id="${post.proposal_id}"></ul>
                            </div>
                            <div class="post-details">
                                <ul class="applications">

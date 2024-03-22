@@ -22,4 +22,8 @@ public interface MemberMapper {
 
     @Delete("DELETE FROM member WHERE user_id = #{user_id}")
     void deleteMemberByUser_id(@Param("user_id") String user_id);
+
+    @Delete("DELETE FROM member WHERE user_id = #{user_id} AND proposal_id = #{proposal_id}")
+    void    deleteMemberByProposal_idUser_id(@Param("user_id") String user_id,
+                                             @Param("proposal_id") long proposal_id);
 }
