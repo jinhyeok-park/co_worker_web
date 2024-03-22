@@ -197,7 +197,7 @@
                     <div class="search-wrapper">
                         <div class="input-holder">
                             <input type="text" id='keyword' class="search-input" placeholder="Type to search" />
-                            <button type="submit" id='search' class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
+                            <button type="submit" id=' search' class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
                         </div>
 <%--                        <span class="close" onclick="searchToggle(this, event);"></span>--%>
                     </div>

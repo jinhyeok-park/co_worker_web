@@ -79,24 +79,13 @@ public class PostController {
                                  @RequestParam("axis_x") String axis_x,
                                  @RequestParam("axis_y") String axis_y,
                                  @RequestParam("apply_limit") long apply_limit,
-                                 @RequestParam("proposal_id") long proposal_id,
-                                 @RequestParam("create_room") boolean create_room)
+                                 @RequestParam("proposal_id") long proposal_id)
     {
         double x = !axis_x.isEmpty() ? Double.parseDouble(axis_x) : 0.0;
         double y = !axis_y.isEmpty() ? Double.parseDouble(axis_y) : 0.0;
 
         postMapper.updatePostByProposal_id(title,content,address,x,y,apply_limit, proposal_id);
         Post post = postMapper.findPostByProposal_Id(proposal_id);
-        if (create_room)
-        {
-            memberMapper.insertMemeber(post.getUser_id(), proposal_id);
-            //chatRoomMapper.insertChat_room(title, userId);
-            postMapper.updateChatRoomStatusTrue(proposal_id);
-        }
-        else
-        {
-            postMapper.updateChatRoomStatusFalse(proposal_id);
-        }
 
         return new ModelAndView("redirect:/post/post_list.html");
     }
@@ -108,8 +97,7 @@ public class PostController {
                                 @RequestParam("address") String address,
                                 @RequestParam("axis_x") String axis_x,
                                 @RequestParam("axis_y") String axis_y,
-                                @RequestParam("apply_limit") long apply_limit,
-                                @RequestParam("create_room") boolean create_room) {
+                                @RequestParam("apply_limit") long apply_limit) {
 
         double x = !axis_x.isEmpty() ? Double.parseDouble(axis_x) : 0.0;
         double y = !axis_y.isEmpty() ? Double.parseDouble(axis_y) : 0.0;
@@ -125,14 +113,6 @@ public class PostController {
         post.setApply_limit(apply_limit);
 
         postMapper.insertPost(post);
-        long postId = post.getProposal_id();
-
-        if (create_room)
-        {
-            memberMapper.insertMemeber(userId, postId);
-            chatRoomMapper.insertChat_room(title, userId);
-            postMapper.updateChatRoomStatusTrue(postId);
-        }
 
         return new ModelAndView("redirect:/post/post_list.html");
     }

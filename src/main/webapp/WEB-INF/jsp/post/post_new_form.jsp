@@ -27,13 +27,7 @@
                     <label for="apply_limit" class="block text-gray-700 text-sm font-bold mb-2">지원 가능 수:</label>
                     <input type="number" id="apply_limit" name="apply_limit" value="${apply_limit}" min="0" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
-              <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">채팅방 생성 여부:</label>
-                    <input type="radio" id="yes" name="create_room" value="true" class="mr-2" checked>
-                    <label for="yes" class="mr-4">Yes</label>
-                    <input type="radio" id="no" name="create_room" value="false" class="mr-2">
-                    <label for="no">No</label>
-                </div>
+
 
                 <!-- Hidden fields for location data and possibly other metadata -->
                 <input type="hidden" id="load_x" name="axis_x" value="${axis_x}">
