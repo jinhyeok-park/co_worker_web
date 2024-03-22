@@ -25,6 +25,19 @@ $(document).ready(function()
             }
         })
     })
+
+    //맴버  리스트를 전달 받아서 ,  클릭 이벤트들을 등록 하여야함
+    $('#showMemebers').click(function ()
+    {
+        var members = ['dummy1', 'dummy2'];
+        $('#memberList').empty();
+        $.each(members, function(index, members)
+        {
+            $('#memberList').append('<li>' + members + '<button class="userKick"> 강퇴하기 </button></li>');
+        })
+        //강퇴 기능 선언, 및 동적버튼삭제하기,
+
+    })
 })
 
 document.addEventListener("DOMContentLoaded", function()

@@ -42,6 +42,8 @@
                                <c:if test="${post.chatroom_status == '0'}">
                                 <input type="submit" value="Create Chat" data-proposal-id="${post.proposal_id}" class="chatRoomStartQuestion bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                                </c:if>
+                               <button id="showMembers">맴버보기</button>
+                               <ul id="memberList"></ul>
                            </div>
                            <div class="post-details">
                                <ul class="applications">
