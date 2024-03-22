@@ -16,6 +16,7 @@ public class Post {
     public long apply_limit;
     public long apply_count;
     public String chatroom_status;
+    public String teampage_status;
 
     public long apply_accept_count;
 }

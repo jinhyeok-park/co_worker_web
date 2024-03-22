@@ -113,11 +113,12 @@ public class PostController {
         post.setApply_limit(apply_limit);
 
         postMapper.insertPost(post);
+        memberMapper.insertMemeber(userId, post.getProposal_id());
 
         return new ModelAndView("redirect:/post/post_list.html");
     }
 
-
+    //포스트 삭제
     @DeleteMapping("{proposal_id}/delete.do")
     public ResponseEntity<Boolean> deleteDetailPage(@PathVariable("proposal_id") long proposal_id)
     {
@@ -146,6 +147,29 @@ public class PostController {
     public @ResponseBody ResponseEntity createChattingRoom(@RequestParam("proposal_id") long propsal_id)
     {
         postMapper.updateChatRoomStatusTrue(propsal_id);
+        return ResponseEntity.ok("true");
+    }
+
+    @PostMapping("delete_chat.do")
+    public @ResponseBody ResponseEntity deleteChattingRoom(@RequestParam("proposal_id") long propsal_id)
+    {
+        postMapper.updateChatRoomStatusFalse(propsal_id);
+        chatMsgMapper.deleteChat_msgByProposal_id(propsal_id);
+        return ResponseEntity.ok("true");
+    }
+
+    @PostMapping("create_teampage.do")
+    public @ResponseBody ResponseEntity createTeamPage(@RequestParam("proposal_id") long propsal_id)
+    {
+        postMapper.updateTeamPageStatusTrue(propsal_id);
+        return ResponseEntity.ok("true");
+    }
+
+    @PostMapping("delete_teampage.do")
+    public @ResponseBody ResponseEntity deleteTeamPage(@RequestParam("proposal_id") long propsal_id)
+    {
+        postMapper.updateTeamPageStatusFalse(propsal_id);
+        teamPostMapper.deleteAllTeamPostByProposal_id(propsal_id);
         return ResponseEntity.ok("true");
     }
 

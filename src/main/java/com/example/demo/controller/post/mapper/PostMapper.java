@@ -45,6 +45,12 @@ public interface PostMapper {
     @Update("UPDATE post set chatroom_status = '0' WHERE proposal_id = #{proposal_id}")
     void    updateChatRoomStatusFalse(@Param("proposal_id") long proposal_id);
 
+    @Update("UPDATE post set teampage_status = '1' WHERE proposal_id = #{proposal_id}")
+    void    updateTeamPageStatusTrue(@Param("proposal_id") long proposal_id);
+
+    @Update("UPDATE post set teampage_status = '0' WHERE proposal_id = #{proposal_id}")
+    void    updateTeamPageStatusFalse(@Param("proposal_id") long proposal_id);
+
     @Select("SELECT proposal_id FROM post WHERE user_id = #{user_id} and title = #{title}")
     Long selectProposal_idByTitleUser_id(@Param("user_id") String user_id,
                                          @Param("title") String title);

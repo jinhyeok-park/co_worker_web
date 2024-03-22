@@ -28,13 +28,11 @@
                     <input type="number" id="apply_limit" name="apply_limit" value="${apply_limit}" min="0" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
 
-
                 <!-- Hidden fields for location data and possibly other metadata -->
                 <input type="hidden" id="load_x" name="axis_x" value="${axis_x}">
                 <input type="hidden" id="load_y" name="axis_y" value="${axis_y}">
                 <input type="hidden" id="address" name="address" value="${address}">
                 <input type="hidden" id="proposal_id" name="proposal_id" value="${proposal_id}">
-
 
                 <div class="flex items-center justify-between">
                     <input type="submit" value="${isEditMode ? '게시글 수정' : '게시글 작성'}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">

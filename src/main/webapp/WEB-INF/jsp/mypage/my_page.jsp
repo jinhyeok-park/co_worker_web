@@ -29,12 +29,18 @@
                                <c:if test="${post.chatroom_status == '1'}">
                                <form class="chatForm" action="/chatstart/${post.proposal_id}" method="GET" onsubmit="openChatWindow(event)">
                                    <input type="submit" value="chatting" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                                   <input type="button" value="Delete Chat" data-proposal-id="${post.proposal_id}" class="chatRoomDeleteQuestion bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                                </form>
                                </c:if>
+                               <c:if test="${post.teampage_status == '1'}">
                                <input type="button" value="TeamPage" class="teamPageButton-${post.proposal_id} bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                               <input type="button" value="Delete TeamPage" data-proposal-id="${post.proposal_id}" class="DeleteTeamPageButton bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                               </c:if>
+                               <c:if test="${post.teampage_status == '0'}">
+                                <input type="button" value="create TeamPage" data-proposal-id="${post.proposal_id}" class="CreateTeamPageButton bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                               </c:if>
                                <c:if test="${post.chatroom_status == '0'}">
                                 <input type="submit" value="Create Chat" data-proposal-id="${post.proposal_id}" class="chatRoomStartQuestion bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                </form>
                                </c:if>
                            </div>
                            <div class="post-details">

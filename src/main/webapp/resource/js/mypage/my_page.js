@@ -63,6 +63,54 @@ $(document).ready(function() {
         // 새로운 페이지를 새 탭에서 엽니다.
         window.open(newUrl, '_blank');
     });
+
+    $('.CreateTeamPageButton').click(function ()
+    {
+        var proposal_id = $(this).data("proposal-id");
+        alert(proposal_id);
+
+                        alert("TeamPage를 생성합니다.");
+                        $.ajax(
+                        {
+                            url:"/post/create_teampage.do",
+                            data : {proposal_id : proposal_id},
+                            type : 'POST',
+                            success: function(response)
+                            {
+                                if (response == "true")
+                                {
+                                    alert("생성 완료");
+                                    window.location.reload();
+                                }
+                            }
+                        })
+    })
+
+                $(".DeleteTeamPageButton").click(function ()
+                            {
+                                var proposal_id = $(this).data("proposal-id");
+                                alert(proposal_id);
+                                var userConfirm = confirm("TeamPage를 삭제하시겠습니까? 모든 내용이 초기화 됩니다.")
+                                if (userConfirm)
+                                {
+                                $.ajax(
+                                                            {
+                                                                url:"/post/delete_teampage.do",
+                                                                data : {proposal_id : proposal_id},
+                                                                type : 'POST',
+                                                                success: function(response)
+                                                                {
+                                                                    if (response == "true")
+                                                                    {
+                                                                        alert("삭제 완료");
+                                                                        window.location.reload();
+                                                                    }
+                                                                }
+                                                            })
+                                }
+                            });
+
+
 });
 
 
@@ -90,4 +138,34 @@ $(document).ready(function ()
             }
         })
     });
+
+     $(".chatRoomDeleteQuestion").click(function ()
+        {
+            var proposal_id = $(this).data("proposal-id");
+
+            var userConfirmation = confirm("채팅 내용이 모두 초기화 됩니다. 정말로 삭제하시겠습니까 ?");
+            if (userConfirmation)
+            {
+                $.ajax(
+                        {
+                            url:"/post/delete_chat.do",
+                            data : {proposal_id : proposal_id},
+                            type : 'POST',
+                            success: function(response)
+                            {
+                                if (response == "true")
+                                {
+                                    alert("삭제 완료");
+                                    window.location.reload();
+                                }
+                            }
+                        })
+            }
+        });
+
+            $(".teamPageStartQuestion").click(function ()
+            {
+
+            });
+
 })
