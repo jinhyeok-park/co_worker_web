@@ -25,16 +25,21 @@
             </button>
         </form>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <c:forEach var="post" items="${postdata}">
-                <div class="bg-white shadow-lg rounded-lg p-6">
-                    <a href="/post/${post.proposal_id}/post_detail_form.html" class="text-lg text-blue-500 hover:text-blue-700 font-semibold">${post.title}</a>
-                </div>
-            </c:forEach>
+             <div id="postListContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- 동적으로 게시글이 여기에 생성됩니다. -->
+                    </div>
+               <div id="pagination" class="mt-4">
+                        <!-- 페이지네이션 컨트롤이 여기에 생성됩니다. -->
+              </div>
         </div>
     </div>
       <div id="roomIds" data-roomids="${roomIds}"></div>
         <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
         <script src="${pageContext.request.contextPath}/resource/js/notification/notification.js"></script>
+        <script src="${pageContext.request.contextPath}/resource/js/post/post_list.js"></script>
+        <script>
+                var jsonPostData = JSON.parse('${jsonPostData}');
+        </script>
 </body>
 </html>

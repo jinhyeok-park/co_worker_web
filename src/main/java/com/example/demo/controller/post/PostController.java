@@ -11,6 +11,7 @@ import com.example.demo.controller.post.model.Comment;
 import com.example.demo.controller.post.model.Post;
 
 import com.example.demo.controller.team.mapper.TeamPostMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
 
 import lombok.RequiredArgsConstructor;
@@ -40,11 +41,37 @@ public class PostController {
     @GetMapping("post_list.html")
     public ModelAndView showPosts(HttpSession session)
     {
-        String userId = (String)session.getAttribute("user_id");
+//        String userId = (String)session.getAttribute("user_id");
+//        ModelAndView mav = new ModelAndView("/post/post_list");
+//        mav.addObject("postdata", postMapper.selectAllPost());
+//        ArrayList<Post> postData = postMapper.selectAllPost();
+//        Post post = postData.get(1);
+//
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String jsonPostData = null;
+//        try {
+//            jsonPostData = objectMapper.writeValueAsString(post);
+//        } catch (Exception e) {
+//            // JSON 변환 중 에러 발생 시 처리할 내용 작성
+//            System.out.println(e + "error occured"); // 혹은 로깅 등의 작업을 수행할 수 있습니다.
+//        }
+//        mav.addObject("test", jsonPostData);
         ModelAndView mav = new ModelAndView("/post/post_list");
-        mav.addObject("postdata", postMapper.selectAllPost());
-        mav.addObject("roomIds", memberMapper.selectProposal_idByUser_id(userId));
+        ObjectMapper objectMapper = new ObjectMapper();
 
+
+        ArrayList<Post> postArray = postMapper.selectAllPost();
+        try
+        {
+            String jsonPostData = objectMapper.writeValueAsString(postArray);
+            jsonPostData = jsonPostData.replace("\\n", "<br>");
+            jsonPostData = jsonPostData.replace("\\r", "");
+            mav.addObject("jsonPostData", jsonPostData);
+        }
+        catch (Exception e)
+        {
+            System.out.println("post_list.html error occur");
+        }
         return mav;
     }
 
