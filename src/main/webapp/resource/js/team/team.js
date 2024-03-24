@@ -267,7 +267,7 @@ function connect() {
             var response = JSON.parse(message.body);
 
             var newButton = $("<button></button>", {
-                "class": "document-item py-2 px-4 bg-blue-500 text-white rounded shadow",
+                "class": "document-item py-2 px-4 bg-blue-500 text-white rounded shadoww w-full h-10 overflow-ellipsis overflow-hidden whitespace-nowrap",
                 "id": "team-post-" + response.teamPost_id,
                 "data-team-post": response.teamPost_id,
                 "data-title": response.title,
