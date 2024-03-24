@@ -1,27 +1,62 @@
 var currentPage = 1;
-var itemPerPage = 18;
+var itemPerPage = 15;
 
-//
-function update(pageData) {
-    var container = document.getElementById('postListContainer');
-    removeAllChildNodes(container); // 기존의 게시물 목록을 제거
+var container = $("#postListContainer");
 
-    pageData.forEach(function(post) {
-        var div = document.createElement('div');
-        var link = document.createElement('a');
-        link.textContent = post.title; // 가정: post 객체에는 title 속성이 있다.
-        link.href = `/post/${post.proposal_id}/post_detail_form.html`; // 여기에는 클릭 시 이동할 페이지의 URL을 입력합니다.
-        link.addEventListener('click', function(event) {
+var
+    init = function() {
+        $('#detailLink').on('click', function (event) {
             // 기본 동작인 링크 이동을 중지시킵니다.
             event.preventDefault();
             // 클릭한 링크의 href 속성 값으로 페이지 이동합니다.
-            window.location.href = link.href;
+            window.location.href = event.target.href;
+        })
+    },
+
+    update = function (pageData) {
+        container.children().remove(); // 기존의 게시물 목록을 제거
+
+        pageData.forEach(function(post) {
+
+            var containerSubDiv = $('<div>').prop({
+                                        className: 'pointer-events-auto w-[21rem] rounded-lg bg-white p-4 text-[0.8125rem] leading-5 shadow-xl shadow-black/5 hover:bg-slate-50 ring-1 ring-slate-700/10'
+                                    }),
+
+                titleDiv = $('<div>').prop({
+                                className: 'flex justify-between'
+                            }).append(
+                                $('<a>').prop({
+                                    id: 'detailLink',
+                                    href: '/post/'+ post.proposal_id +'/post_detail_form.html',
+                                    className: 'text-lg text-blue-500 hover:text-blue-700 font-semibold truncate',
+                                    innerHTML: post.title
+                                })
+                            ),
+
+                contentDiv = $('<div>').prop({
+                                    className: 'post-content text-base font-medium text-slate-900 dark:text-slate-200',
+                                    innerHTML: post.content
+                            }),
+                addressDiv = $('<div>').prop({
+                    className: 'text-sm font-medium text-gray-600 text-slate-900 dark:text-slate-200 truncate',
+                    innerHTML: post.address == '' ? 'Online Community' : post.address
+                }).css({
+                    "margin-top": "5px",
+                    "font-size": "12px"
+                });
+
+            containerSubDiv.append(titleDiv);
+            containerSubDiv.append('<div>').append('<hr>');
+            containerSubDiv.append(contentDiv);
+            containerSubDiv.append(addressDiv);
+
+            container.append(containerSubDiv);
+
         });
-        div.appendChild(link);
-        container.appendChild(div);
-    });
-    displayPagination(jsonPostData.length);
-}
+
+        displayPagination(jsonPostData.length);
+
+    };
 
 function displayPagination(totalItems) {
     var paginationEl = document.getElementById('pagination');
@@ -35,7 +70,7 @@ function displayPagination(totalItems) {
         el.textContent = i;
         console.log(currentPage);
         if (i === currentPage) {
-            el.style.color = 'green';
+            el.style.color = '#0ea5e9';
             el.classList.add('active'); // 현재 페이지를 시각적으로 표시
         } else {
             el.addEventListener('click', (function(pageNumber) {
@@ -61,8 +96,8 @@ window.onload = function() {
     // 페이지 데이터와 페이지네이션 설정을 위한 초기 호출
     var initialPageData = jsonPostData.slice(0, itemPerPage);
     update(initialPageData); // 초기 페이지 데이터로 UI 업데이트
-    displayPagination(jsonPostData.length); // 전체 아이템 수를 기반으로 페이지네이션 설정
 
+    init();
 };
 
 function logout() {

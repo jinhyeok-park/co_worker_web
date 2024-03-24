@@ -269,15 +269,19 @@
             </form>
         </div><%-- Make Community Button 영역 끝 --%>
 
-    <%-- Community List 영역 시작 --%>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
-             <div id="postListContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                 <!-- 동적으로 게시글이 여기에 생성됩니다. -->
-             </div>
-             <div id="pagination" class="mt-4">
+        <%-- Community List 영역 시작 --%>
+         <div id="postListContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
+             <!-- 동적으로 게시글이 여기에 생성됩니다. -->
+         </div>
+        <%-- Community List 영역 끝 --%>
+
+        <%-- Pagination 영역 시작 --%>
+        <div class="flex flex-wrap justify-between items-center py-4">
+             <div id="pagination" class="mt-4 space-x-4 mx-auto text-gray-600 dark:text-gray-400 font-bold">
                 <!-- 페이지네이션 컨트롤이 여기에 생성됩니다. -->
              </div>
         </div>
+        <%-- Pagination 영역 시작 --%>
     </div>
       <div id="roomIds" data-roomids="${roomIds}"></div>
         <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
