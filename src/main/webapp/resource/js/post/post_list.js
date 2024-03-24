@@ -64,3 +64,52 @@ window.onload = function() {
     displayPagination(jsonPostData.length); // 전체 아이템 수를 기반으로 페이지네이션 설정
 
 };
+
+function logout() {
+    var f = document.createElement('form');
+    f.setAttribute('method', 'post');
+    f.setAttribute('action', '/login/logout.do');
+    document.body.appendChild(f);
+    f.submit();
+}
+
+function searchToggle(obj, evt){
+    var container = $(obj).closest('.search-wrapper');
+    if(!container.hasClass('active')){
+        container.addClass('active');
+        evt.preventDefault();
+    }
+    else if(container.hasClass('active') && $(obj).closest('.input-holder').length == 0){
+        container.removeClass('active');
+        // clear input
+        container.find('.search-input').val('');
+    }
+}
+
+function searchPlaces()
+{
+    var keyword = document.getElementById('keyword').value;
+    if (!keyword.replace(/^\s+|\s+$/g, ''))
+    {
+        alert('키워드를 입력해주세요!');
+        return false;
+    }
+    $.ajax({
+        url: '/post/search_content.do',
+        type: 'GET',
+        //dataType: 'json',
+        data: { keyword : keyword },
+        success: function(response)
+        {
+            if (response.length != 0)
+            {
+                searchedDbData = response; // 전역 변수에 검색 결과 저장
+                update(response);
+            }
+            else
+            {
+                alert("검색 결과가 존재하지 않습니다.");
+            }
+        }
+    });
+}

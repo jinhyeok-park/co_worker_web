@@ -1,11 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%
+    // 세션 존재 여부를 확인합니다. 별도로 세션 변수를 선언할 필요가 없습니다.
+    if (session == null || session.getAttribute("user_id") == null) {
+        // 사용자가 로그인하지 않은 경우 로그인 페이지로 리디렉션합니다.
+        response.sendRedirect("/login/login.html");
+        return; // 리디렉션 후 추가 코드 실행을 방지하기 위해 리턴합니다.
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello Page</title>
+    <title>CO-WORKER</title>
+
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/index.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/font.css">
@@ -186,6 +195,7 @@
 </style>
 <body class="bg-gray-100">
     <div class="container mx-auto">
+        <%-- 헤더 영역 시작--%>
         <div class="header-div">
             <div class="flex flex-wrap justify-between items-center py-4">
                 <div class="kodchasan-bold logo-title">
@@ -197,9 +207,8 @@
                     <div class="search-wrapper">
                         <div class="input-holder">
                             <input type="text" id='keyword' class="search-input" placeholder="Type to search" />
-                            <button type="submit" id=' search' class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
+                            <button type="submit" id='search' class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
                         </div>
-<%--                        <span class="close" onclick="searchToggle(this, event);"></span>--%>
                     </div>
                 </form>
 
@@ -217,7 +226,7 @@
                     </c:choose>
                 </div>
             </div>
-        </div>
+        </div><%-- 헤더 영역 끝 --%>
 
         <div class="text-sm font-semibold post-list">
             <span>
