@@ -110,8 +110,9 @@ function displayPlaces(places) {
                         address.value = result[0].road_address.address_name;
                         var detailAddress = !!result[0].road_address ? '<div>도로명 주소 : ' +  result[0].road_address.address_name + '</div>' : '';
                         detailAddress += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
-
+                        var toHtml = "도로명 주소 : " + result[0].road_address.address_name;
                         clickedInfo.innerHTML = detailAddress;
+                        clickedInfo.value = toHtml;
                     }
                 })
             });
