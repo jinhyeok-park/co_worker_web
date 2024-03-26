@@ -29,6 +29,7 @@ public class MainController {
 
         json = toJson(post);
         json = json.replace("\\n", "<br>");
+        json = json.replace("\\r", "");
         mav.addObject("postdata", json);
         String userId = (String)session.getAttribute("user_id");
         if (userId != null)

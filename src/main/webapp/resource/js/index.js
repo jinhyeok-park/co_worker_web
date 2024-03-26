@@ -182,10 +182,6 @@ function getListItem(index, data) {
                         <h5 class="text-xl font-bold text-gray-800">${data.title}</h5>
                         <span class="text-sm text-gray-700">${data.address}</span>`;
 
-    if (data.content) {
-        itemStr += `<div class="mt-2 text-sm text-gray-600">${data.content}</div>`;
-    }
-
     itemStr += '</div>';
     el.innerHTML = itemStr;
     el.className = 'item flex items-center gap-3 p-3';
