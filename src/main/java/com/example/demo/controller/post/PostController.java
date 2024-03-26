@@ -148,6 +148,9 @@ public class PostController {
     public ModelAndView showPostDetail(@PathVariable("postid") long postId)
     {
         Post detailPost = postMapper.findPostByProposal_Id(postId);
+        String contents = detailPost.content;
+        contents = contents.replaceAll("\\r?\\n", "<br/>");
+        detailPost.setContent(contents);
         ArrayList<Comment> comments = commentMapper.selectCommentByProposal_id(postId);
         ModelAndView mav = new ModelAndView("/post/post_detail_form");
         mav.addObject("detailPost", detailPost);

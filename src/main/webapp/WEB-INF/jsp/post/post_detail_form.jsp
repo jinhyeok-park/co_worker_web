@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%
     // 세션 존재 여부를 확인합니다. 별도로 세션 변수를 선언할 필요가 없습니다.
     if (session == null || session.getAttribute("user_id") == null) {
@@ -95,11 +96,13 @@
             <div class="flex space-x-2 text-sm font-semibold" style="color: #0f172a; font-weight: 600;">
                 <c:choose>
                     <c:when test="${not empty sessionScope.user_id}">
-                        <a href="#" onclick="logout()">Logout&nbsp;</a> |
+                        <a href="/post/post_list.html">Community&nbsp;</a> |
                         <a href="/mypage/my_page.html">My Page&nbsp;</a> |
-                        <a href="/alarm/alarm_list.html">Alarm</a>
+                        <a href="/alarm/alarm_list.html">Alarm</a> |
+                        <a href="#" onclick="logout()">Logout&nbsp;</a>
                     </c:when>
                     <c:otherwise>
+                        <a href="/post/post_list.html">Community&nbsp;</a> |
                         <a href="/login/login.html">Login&nbsp;</a> |
                         <a href="/signup/signup.html">Sign Up&nbsp;</a>
                     </c:otherwise>
@@ -131,7 +134,7 @@
                 </c:choose>
             </div>
 
-            <div class="my-20 mx-10 custom-scrollbar rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline ">
+            <div class="my-20 mx-10 custom-scrollbar rounded text-gray-700 mb-3 focus:outline-none focus:shadow-outline ">
                 ${detailPost.content}
             </div>
             <input type="hidden" id="axis_x" value="${detailPost.axis_x}" />
@@ -186,6 +189,14 @@
                     </c:if>
                 </div>
             </c:forEach>
+
+            <div class="flex mx-10 ">
+                <div class="w-full ml-10 mb-3 flex justify-center" style="font-size:14px;margin-top: 10px;">
+                    <button type="button" class="list-button btn-submit w-18 py-1 px-1 text-white rounded m-1">목록으로</button>
+                </div>
+            </div>
+
+
             <input type="hidden" id="pro_id" value="${detailPost.proposal_id}" />
         </div>
     </div><%-- post 영역 끝 --%>

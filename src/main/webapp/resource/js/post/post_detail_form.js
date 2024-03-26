@@ -141,6 +141,10 @@ $(document).ready(function()
     $('.logo-title').on('click', function () {
         window.location.href = '/';
     });
+
+    $('.list-button').on('click', function () {
+        window.location.href = '/post/post_list.html';
+    });
 })
 
 $(document).ready(function()
