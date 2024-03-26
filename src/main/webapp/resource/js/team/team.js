@@ -1,26 +1,3 @@
-//$(document).ready(function() {
-//    // Function to save title and content to localStorage
-//    function saveContent() {
-//        localStorage.setItem('title', $('#titleInput').val());
-//        localStorage.setItem('content', $('#markdownInput').val());
-//    }
-//
-//    // Event listeners to save content as the user types
-//    $('#titleInput').on('input', saveContent);
-//    $('#markdownInput').on('input', saveContent);
-//
-//    // Load saved content on page load
-//    const savedTitle = localStorage.getItem('title');
-//    const savedContent = localStorage.getItem('content');
-//
-//    if(savedTitle) {
-//        $('#titleInput').val(savedTitle);
-//    }
-//
-//    if(savedContent) {
-//        $('#markdownInput').val(savedContent);
-//    }
-//});
 var isConnected = false; // 연결 상태를 추적하는 전역 변수
 var stompClient;
 $(document).ready(function() {
@@ -38,11 +15,6 @@ $(document).ready(function() {
         localStorage.setItem('content', $('#markdownInput').val());
     }
 
-//    $('#titleInput').on('input', saveContent);
-//    $('#markdownInput').on('input', saveContent);
-
-//    $('#titleInput').on('input', sendMessage);
-//    $('#markdownInput').on('input', sendMessage);
     // send 함수를 call 해서 subscribe 하는 곳에 모든 message를 전달한다.
 
         // Load saved content on page load
@@ -65,39 +37,29 @@ $(document).ready(function() {
             $('#titleInput').hide();
             $('#markdownInput').hide(); // 입력 창 숨기기
             $('#markdownPreview').css('width', '100%'); // 미리보기 너비 100%로 설정
-            $(this).text('되돌아가기'); // 버튼 텍스트 변경
+            $(this).text('Toggle Markdown'); // 버튼 텍스트 변경
         } else {
             // 원래 레이아웃으로 복귀
             $('#titleInput').show(); // 오타 수정: 'titleInput'이 아니라 '#titleInput'으로 변경
             $('#markdownInput').show(); // 입력 창 다시 보이기
             $('#markdownPreview').css('width', ''); // 미리보기 너비 원래대로
-            $(this).text('전체보기'); // 버튼 텍스트 원래대로
+            $(this).text('Toggle Preview'); // 버튼 텍스트 원래대로
         }
         isPreviewFull = !isPreviewFull; // 플래그 상태 반전
     });
 });
 
-//$(document).ready(function() {
-//
-//    // 일정 시간 후 자동 저장 설정 (예: 5분)
-//    var autoSaveTimer = setTimeout(saveContentToServer, 300000); // 300000ms = 5분
-//
-//    // 페이지를 떠날 때 내용 저장
-//
-//
-//    // 내용을 서버로 저장하는 함수
-//
-//
-//    // 사용자가 입력을 시작하면 자동 저장 타이머를 재설정
-//    $('#titleInput, #markdownInput').on('input', function() {
-//        clearTimeout(autoSaveTimer); // 이전 타이머 취소
-//        autoSaveTimer = setTimeout(saveContentToServer, 300000); // 다시 5분 후 저장 설정
-//    });
-//});
-
 $(document).ready(function() {
 
-    $("#documentList").on('click', '.document-item', function () {
+    $("#documentList").on('click', '.document-item', function (flag) {
+        if(flag) {
+            $(".document-item").removeClass('bg-blue-400');
+            $(".document-item").addClass('text-gray-600');
+        }
+
+        $(this).removeClass('text-gray-600');
+        $(this).addClass('bg-blue-400 text-white');
+
         // 현재 클릭된 항목의 data 속성 값 가져오기
         saveContentToServer();
 
@@ -114,12 +76,9 @@ $(document).ready(function() {
                 // 페이지의 입력 필드에 데이터 설정
                 $('#titleInput').val(window.currentTitle);
                 $('#markdownInput').val(window.currentContent);
+                $('#markdownPreview').html(marked.parse(window.currentContent));
             }
          })
-//        window.currentTeamPostId = $(this).data('team-post'); // 현재 선택된 teamPostId를 전역 변수에 저장합니다.
-//        window.currentTitle = $(this).data('title');
-//        window.currentContent = $(this).data('content');
-//        window.currentProposalId = $(this).data('proposal-id');
 
         // 제목과 내용을 입력 필드에 설정
         $('#titleInput').val(window.currentTitle);
@@ -146,25 +105,14 @@ $(document).ready(function() {
     $('#markdownInput').on('input', debounce(sendMessage, 500) );
 
     $("#addDocument").on('click', function () {
-        var postData = $("#post").data("post");
+
+        $(".document-item").removeClass('bg-blue-400 text-white');
+        $(".document-item").addClass('text-gray-600');
+
         $.ajax({
             url: "/teampage/" + window.currentProposalId + "/teampage_insert.do",
             type: 'POST',
             success: function(response) {
-                var documentList = $("#documentList");
-
-                // 새로운 버튼 요소를 생성
-                // var newButton = $("<button></button>", {
-                //     "class": "document-item py-2 px-4 bg-blue-500 text-white rounded shadow",
-                //     "data-team-post": response.teamPost_id,
-                //     "data-title": response.title,
-                //     "data-content": response.contents,
-                //     "data-proposal-id": response.proposal_id,
-                //     text: response.title // 버튼의 표시될 텍스트
-                // });
-                //
-                // // 생성된 버튼을 documentList에 추가
-                // documentList.append(newButton);
                 var chatMessage = {
                     user_id : "test",
                     title: response.title,
@@ -174,7 +122,9 @@ $(document).ready(function() {
                     // 여기에 필요한 다른 필드 추가
                 };
                 stompClient.send(`/room/teamnavi/` + window.currentProposalId + "/" + window.currentTeamPostId , {}, JSON.stringify(chatMessage));
-
+                setTimeout( () => {
+                    $('#team-post-' + response.teamPost_id).click(false);
+                }, 700);
             },
             error: function(xhr, status, error) {
                 // AJAX 요청 실패 시 처리할 코드
@@ -182,7 +132,6 @@ $(document).ready(function() {
             }
         });
     });
- var autoSaveTimer = setInterval(saveContentToServer, 3000); // 1000ms = 1초
 $("#saveButton").on('click', saveContentToServer);
 $("#deleteButton").on('click', deleteContentInServer);
 });
@@ -215,9 +164,6 @@ function deleteContentInServer()
                 }
         })
     }
-
-
-
 }
 
 
@@ -265,9 +211,8 @@ function connect() {
         });
         stompClient.subscribe('/room/teamnavi/' + window.currentProposalId + "/" + window.currentTeamPostId, function(message) {
             var response = JSON.parse(message.body);
-
             var newButton = $("<button></button>", {
-                "class": "document-item py-2 px-4 bg-blue-500 text-white rounded shadoww w-full h-10 overflow-ellipsis overflow-hidden whitespace-nowrap",
+                "class": "document-item py-2 px-4 bg-blue-400 text-white rounded shadoww w-full h-10 overflow-ellipsis overflow-hidden whitespace-nowrap",
                 "id": "team-post-" + response.teamPost_id,
                 "data-team-post": response.teamPost_id,
                 "data-title": response.title,
@@ -275,6 +220,7 @@ function connect() {
                 "data-proposal-id": response.proposal_id,
                 text: response.title // text to be displayed on the button
             });
+
 
             // append the newly created button to the document list
             $("#documentList").append(newButton);

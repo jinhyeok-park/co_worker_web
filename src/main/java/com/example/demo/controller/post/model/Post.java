@@ -2,7 +2,7 @@ package com.example.demo.controller.post.model;
 
 import lombok.Data;
 
-import java.math.BigInteger;
+import java.sql.Timestamp;
 
 @Data
 public class Post {
@@ -17,6 +17,6 @@ public class Post {
     public long apply_count;
     public String chatroom_status;
     public String teampage_status;
-
     public long apply_accept_count;
+    public Timestamp reg_time;
 }

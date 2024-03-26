@@ -5,6 +5,11 @@ var isShown = false;
 
 var
     init = function() {/* init Start */
+
+        $('.logo-title').on('click', function () {
+            window.location.href = '/';
+        });
+
         $('#editUserInfo').on('click', function () {
             $(location).attr('href', "/mypage/user_edit.html?isEditMode=true");
         });
@@ -151,10 +156,10 @@ var
     },/* init End */
 
     logout = function () {
-        var f = document.createElement('form');
+        var f = document.createElement('form');
 
-        f.setAttribute('method', 'post');
-        f.setAttribute('action', '/login/logout.do');
+        f.setAttribute('method','post');
+        f.setAttribute('action','/login/logout.do');
 
         document.body.appendChild(f);
         f.submit();

@@ -10,7 +10,11 @@ var
             event.preventDefault();
             // 클릭한 링크의 href 속성 값으로 페이지 이동합니다.
             window.location.href = event.target.href;
-        })
+        });
+
+        $('.logo-title').on('click', function () {
+            window.location.href = '/';
+        });
     },
 
     update = function (pageData) {
@@ -147,4 +151,5 @@ function searchPlaces()
             }
         }
     });
+
 }

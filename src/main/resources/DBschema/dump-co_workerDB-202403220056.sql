@@ -278,3 +278,7 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2024-03-22  0:56:05
+
+ALTER TABLE Test.alarm ADD reg_time DATETIME NULL;
+ALTER TABLE Test.post ADD reg_time DATETIME NULL;
+ALTER TABLE Test.comment ADD reg_time DATETIME NULL;

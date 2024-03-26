@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 @Mapper
 public interface PostMapper {
-    @Insert("INSERT INTO post(user_id, title, content, address,axis_x, axis_y, apply_limit)" +
-            "VALUES(#{user_id}, #{title}, #{content},#{address}, #{axis_x}, #{axis_y}, #{apply_limit})")
+    @Insert("INSERT INTO post(user_id, title, content, address,axis_x, axis_y, apply_limit, reg_time)" +
+            "VALUES(#{user_id}, #{title}, #{content},#{address}, #{axis_x}, #{axis_y}, #{apply_limit}, DATE_FORMAT(NOW(),'%Y%m%d%H%i%S'))")
     @Options(useGeneratedKeys = true, keyProperty = "proposal_id")
     void    insertPost(Post post);
 
@@ -33,10 +33,10 @@ public interface PostMapper {
     @Select("SELECT * FROM post WHERE (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%')) AND axis_x != 0 AND axis_y != 0")
     ArrayList<Post> findByTitleOrContentContaining(String keyword);
 
-    @Select("SELECT * FROM post WHERE axis_x != 0 AND axis_y != 0")
+    @Select("SELECT user_id, title, content, address, axis_x, axis_y, apply_limit FROM post WHERE axis_x != 0 AND axis_y != 0")
     ArrayList<Post> selectAllPostsExceptZeroLocations();
 
-    @Select("SELECT * FROM post")
+    @Select("SELECT * FROM post ORDER BY reg_time DESC")
     ArrayList<Post> selectAllPost();
 
     @Update("UPDATE post set chatroom_status = '1' WHERE proposal_id = #{proposal_id}")
@@ -57,7 +57,7 @@ public interface PostMapper {
     @Delete("DELETE FROM post WHERE proposal_id = #{proposal_id}")
     void    deletePostByProposal_id(@Param("proposal_id") long proposal_id);
 
-    @Update("UPDATE post SET title = #{title}, content = #{content}, address = #{address}, axis_x = #{axis_x}, axis_y = #{axis_y}, apply_limit = #{apply_limit} WHERE proposal_id = #{proposal_id}")
+    @Update("UPDATE post SET title = #{title}, content = #{content}, address = #{address}, axis_x = #{axis_x}, axis_y = #{axis_y}, apply_limit = #{apply_limit}, reg_time = DATE_FORMAT(NOW(),'%Y%m%d%H%i%S') WHERE proposal_id = #{proposal_id}")
     void    updatePostByProposal_id(@Param("title") String title,
                                     @Param("content") String content,
                                     @Param("address") String address,

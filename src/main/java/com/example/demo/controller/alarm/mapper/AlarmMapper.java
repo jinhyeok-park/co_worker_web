@@ -7,13 +7,13 @@ import java.util.ArrayList;
 
 @Mapper
 public interface AlarmMapper {
-    @Insert("INSERT INTO alarm(user_id, activity, message) VALUES(#{user_id}, #{activity}, #{message})")
+    @Insert("INSERT INTO alarm(user_id, activity, message, reg_time) VALUES(#{user_id}, #{activity}, #{message}, DATE_FORMAT(NOW(),'%Y%m%d%H%i%S'))")
     void insertAlarm(@Param("user_id") String user_id,
                      @Param("activity") String activity,
                      @Param("message") String message);
 
 
-    @Select("SELECT * FROM alarm WHERE user_id = #{user_id} and check_status = '1'")
+    @Select("SELECT * FROM alarm WHERE user_id = #{user_id} and check_status = '1' ORDER BY reg_time DESC")
     ArrayList<Alarm> selectAlarmByUserId(@Param("user_id") String user_id);
 
     @Update("UPDATE alarm SET check_status = '2' WHERE user_id = #{user_id}")

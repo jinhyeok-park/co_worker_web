@@ -35,10 +35,6 @@ public class MainController {
         {
             ArrayList<Long> roomIds = memberMapper.selectProposal_idByUser_id(userId);
             mav.addObject("roomIds", roomIds);
-            for (int i = 0 ; i < roomIds.size() ; i++)
-            {
-                System.out.println(roomIds.get(i));
-            }
         }
         return mav;
     }

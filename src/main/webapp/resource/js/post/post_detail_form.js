@@ -22,6 +22,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+var logout = function () {
+    var f=document.createElement('form');
+
+    f.setAttribute('method','post');
+    f.setAttribute('action','/login/logout.do');
+
+    document.body.appendChild(f);
+    f.submit();
+};
+
+
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
     mapOption = {
         center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
@@ -125,7 +136,11 @@ $(document).ready(function()
                 }
             }
         })
-    })
+    });
+
+    $('.logo-title').on('click', function () {
+        window.location.href = '/';
+    });
 })
 
 $(document).ready(function()
