@@ -242,7 +242,7 @@
                         <c:when test="${not empty sessionScope.user_id}">
                             <a href="/post/post_list.html">Community&nbsp;</a> |
                             <a href="/mypage/my_page.html">My Page&nbsp;</a> |
-                            <a href="/alarm/alarm_list.html">Alarm</a> |
+                            <a href="/alarm/alarm_list.html">Alarm&nbsp;</a> |
                             <a href="#" onclick="logout()">Logout&nbsp;</a>
                         </c:when>
                         <c:otherwise>

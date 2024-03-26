@@ -32,7 +32,7 @@ public class LoginController {
         if (authenticate(user_id, pwd))
         {
             session.setAttribute("user_id", user_id);
-            session.setMaxInactiveInterval(600);
+            session.setMaxInactiveInterval(3000);
             ModelAndView mav = new ModelAndView("redirect:/"); //여기서  :이후는 url 값이 됨.
             return mav;
         }
